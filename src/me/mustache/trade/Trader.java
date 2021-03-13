@@ -1,5 +1,12 @@
 package me.mustache.trade;
 
-public class Trader {
+public abstract class Trader {
+
+    public static boolean buyable;
+
+
+    public Trader(String pName){
+
+    }
 
 }

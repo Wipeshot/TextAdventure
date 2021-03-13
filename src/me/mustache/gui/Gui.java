@@ -12,7 +12,7 @@ public class Gui extends JFrame {
 	public Gui() {
 		
 		
-		//Gibt die Monitor größe
+		//Erstellt das Fenster
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		
 		int screenX = (int) screenSize.getWidth();
@@ -24,13 +24,9 @@ public class Gui extends JFrame {
 		this.setSize(windowX, windowY);
 		this.setResizable(false);
 		this.setVisible(true);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
-		
-		
-		
-		
-		
-		
+
 	}
 
 }
