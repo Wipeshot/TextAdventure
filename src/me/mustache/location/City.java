@@ -6,9 +6,8 @@ public class City extends Location {
     private boolean city;
 
 
-
-    public City(pOrt){
-        super (pOrt);
+    public City(String pOrt) {
+        super(pOrt);
 
         city = true;
 
@@ -16,15 +15,16 @@ public class City extends Location {
 
 
 
-
-
-    public String getInCity(){
+    public String getInCity() {
         return pOrt;
     }
 
-    public boolean setOrt(String pOrt){
+    public void setOrt(String pOrt) {
         this.pOrt = pOrt;
     }
 
 
 }
+
+
+

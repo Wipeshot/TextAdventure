@@ -5,6 +5,7 @@ public class Player {
     private Health health;
     private Mana mana;
     private Hunger hunger;
+    private static String name;
 
     public Player(){
         health = new Health();
@@ -22,5 +23,13 @@ public class Player {
 
     public Hunger getHunger(){
         return hunger;
+    }
+
+    public void setName(String pName){
+        name = pName;
+    }
+
+    public static String getName(){
+        return name;
     }
 }
