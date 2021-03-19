@@ -7,7 +7,7 @@ import me.mustache.main.Main;
 public class HealSpell extends Spell {
 
     public HealSpell() {
-        super("Heilzaber", "Heilt dich un 20LP.", 20);
+        super("Heilzaber", "Heilt dich um 20LP.", 20);
     }
 
     @Override

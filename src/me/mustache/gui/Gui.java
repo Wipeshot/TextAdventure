@@ -10,7 +10,7 @@ import javax.swing.*;
 import java.awt.Toolkit;
 
 @SuppressWarnings("serial")
-public abstract class Gui extends JFrame {
+public class Gui extends JFrame {
 
 	static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
