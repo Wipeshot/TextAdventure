@@ -1,5 +1,9 @@
 package me.mustache.friendly_creature;
 
-public class Animal {
+public abstract class Animal {
+
+    public Animal(){
+
+    }
 
 }

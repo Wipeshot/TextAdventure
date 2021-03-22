@@ -7,7 +7,7 @@ import me.mustache.main.Main;
 public class HealSpell extends Spell {
 
     public HealSpell() {
-        super("Heilzaber", "Heilt dich um 20LP.", 20);
+        super("Heilzauber", "Heilt dich um 20LP.", 20);
     }
 
     @Override
@@ -16,13 +16,17 @@ public class HealSpell extends Spell {
         Health health = Main.thePlayer.getHealth();
         Mana mana = Main.thePlayer.getMana();
 
-        if (mana.getMana() > manaC) {
-            if (health.getHealth() < health.getMaxHealth() - 20) {
-                health.setHealth(health.getHealth() + 20);
-            } else if (health.getHealth() + 20 >= health.getMaxHealth()) {
-                health.setHealth(health.getMaxHealth());
+        int currentH = health.getHealth();
+        int maxH = health.getMaxHealth();
+        int currentM = mana.getMana();
+
+        if (currentM > manaC) {
+            if (currentH < maxH - 20) {
+                health.setHealth(currentH + 20);
+            } else if (currentH + 20 >= maxH) {
+                health.setHealth(maxH);
             }
         }
-        mana.setMana(mana.getMana() - manaC);
+        mana.setMana(currentM - manaC);
     }
 }
