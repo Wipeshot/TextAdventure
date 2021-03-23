@@ -7,15 +7,20 @@ public class Hunger {
 
 
     protected int maxHunger = 100;
-    protected int Hunger = 100;
+    protected int hunger = 100;
 
     private final Timer timer = new Timer();
 
     public Hunger() {
+
+
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                setHunger(getHunger()-2);
+                setHunger(hunger -1);
+                if (hunger  <= 0){
+                    timer.cancel();
+                }
             }
         }, 10000, 10000);
     }
@@ -27,7 +32,7 @@ public class Hunger {
     }
 
     public void setHunger(int pHunger) {
-        Hunger = pHunger;
+        hunger = pHunger;
     }
 
 
@@ -37,6 +42,6 @@ public class Hunger {
     }
 
     public int getHunger() {
-        return Hunger;
+        return hunger;
     }
 }

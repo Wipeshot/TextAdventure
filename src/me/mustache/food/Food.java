@@ -1,9 +1,15 @@
 package me.mustache.food;
 
-public class Food {
+public abstract class Food {
 
-    public Food(){
+    protected int hungerC;
+
+    public Food(String pName, String pBeschreibung, int pHunger){
+
+        hungerC = pHunger;
 
     }
+
+    public abstract void useFood();
 
 }
