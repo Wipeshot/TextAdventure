@@ -18,10 +18,15 @@ public class HealthPot extends Pot {
 
         Health health = Main.thePlayer.getHealth();
 
-        if(health.getHealth() < health.getMaxHealth()-20) {
-            health.setHealth(health.getHealth() + 20);
-        } else if (health.getHealth()+20>= health.getMaxHealth()){
-            health.setHealth(health.getMaxHealth());
+        int currentH = health.getHealth();
+        int maxH = health.getMaxHealth();
+
+        if (currentH < maxH - 20) {
+            health.setHealth(currentH + 20);
+        } else if (currentH + 20 >= maxH) {
+            health.setHealth(maxH);
         }
+
     }
+
 }
