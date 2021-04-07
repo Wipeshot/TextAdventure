@@ -21,5 +21,8 @@ public class Main {
         thePlayer = new Player();
         marburg = new City("Marburg");
         new Gui();
+
+        thePlayer.setName("Pimmelkopf");
+
     }
 }

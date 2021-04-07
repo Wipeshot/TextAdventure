@@ -21,10 +21,15 @@ public class HealthPot extends Pot {
         int currentH = health.getHealth();
         int maxH = health.getMaxHealth();
 
-        if (currentH < maxH - 20) {
-            health.setHealth(currentH + 20);
-        } else if (currentH + 20 >= maxH) {
-            health.setHealth(maxH);
+        if(numInInventory >= 1) {
+            if (currentH < maxH - 20) {
+                health.setHealth(currentH + 20);
+            } else if (currentH + 20 >= maxH) {
+                health.setHealth(maxH);
+            }
+            numInInventory = numInInventory-1;
+        }else {
+            return;
         }
 
     }

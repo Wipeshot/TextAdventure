@@ -4,6 +4,7 @@ public abstract class Pot {
 
     protected String name;
     protected String description;
+    protected int numInInventory;
 
     public Pot(String pName,String pDescription){
 
@@ -20,4 +21,13 @@ public abstract class Pot {
     public String getDescription() {
         return description;
     }
+
+    public int getNumInInventory(){
+        return numInInventory;
+    }
+
+    public void setNumInInventory(int numInInventory){
+
+    }
+
 }
