@@ -1,28 +1,30 @@
 package me.mustache.main;
 
-import me.mustache.character.Hunger;
 import me.mustache.character.Player;
-import me.mustache.gui.Gui;
+import me.mustache.gui.Inventar;
+import me.mustache.gui.StartGui;
 import me.mustache.location.City;
-import me.mustache.location.Location;
+import me.mustache.pots.HealthPot;
 import me.mustache.trade.PotTrader;
 
-import static me.mustache.gui.Gui.*;
 
 public class Main {
 
     public static Player thePlayer;
-    public static PotTrader potTrader;
-    public static City marburg;
+    private static Inventar inv;
 
     public static void main(String[] args){
 
 
         thePlayer = new Player();
-        marburg = new City("Marburg");
-        new Gui();
+        new StartGui();
 
-        thePlayer.setName("Pimmelkopf");
+        HealthPot healthPot = new HealthPot();
+
+        healthPot.setNumInInventory(7);
+        inv.refreshInv();
+
+
 
     }
 }

@@ -6,39 +6,55 @@ import me.mustache.pots.Pot;
 import javax.swing.*;
 import java.awt.*;
 
+import static java.lang.Math.*;
+
 public class Inventar extends JFrame {
 
+    HealthPot healthPot = new HealthPot();
+    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+
+    private int screenX = (int) screenSize.getWidth();
+    private int screenY = (int) screenSize.getHeight();
+
+    private int windowX = screenX/4;
+    private int windowY = screenY/4;
+
     public Inventar(String pName){
-
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-
-        int screenX = (int) screenSize.getWidth();
-        int screenY = (int) screenSize.getHeight();
-
-        int windowX = screenX/4;
-        int windowY = screenY/4;
 
         setTitle(pName + "'s Inventar");
         setSize(windowX, windowY);
         setResizable(false);
+        setLayout(null);
         setVisible(true);
+
+        healthPot();
 
     }
 
 
     public void healthPot(){
 
-        HealthPot healthPot = new HealthPot();
-
         JLabel itemName = new JLabel(healthPot.getName());
         JLabel numInventory = new JLabel(String.valueOf(healthPot.getNumInInventory()));
         JButton useItem = new JButton("Benutzen");
+
+        itemName.setBounds((int) Math.round(windowX*0.05), 0, (int) Math.round(windowX*0.4), (int) Math.round(windowY*0.125));
+        numInventory.setBounds((int) Math.round(windowX*0.45),0, (int) Math.round( windowX*0.166), (int) Math.round(windowY*0.125));
+        useItem.setBounds((int) Math.round( windowX*0.616), 0, (int) Math.round( windowX*0.344), (int) Math.round( windowY*0.125));
 
         add(itemName);
         add(numInventory);
         add(useItem);
 
+        useItem.addActionListener(e -> {
+            healthPot.useItem();
+                }
+                );
 
+    }
+
+    public void refreshInv(){
+        repaint();
     }
 
 }
