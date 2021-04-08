@@ -26,8 +26,8 @@ public abstract class Pot {
         return numInInventory;
     }
 
-    public void setNumInInventory(int numInInventory){
-
+    public void setNumInInventory(int pNumInInventory){
+        numInInventory = pNumInInventory;
     }
 
 }

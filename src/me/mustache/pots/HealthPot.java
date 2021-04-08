@@ -28,10 +28,10 @@ public class HealthPot extends Pot {
                 health.setHealth(maxH);
             }
             numInInventory = numInInventory-1;
+            System.out.println(health.getHealth());
         }else {
             return;
         }
-
     }
 
 }

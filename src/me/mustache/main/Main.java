@@ -11,7 +11,6 @@ import me.mustache.trade.PotTrader;
 public class Main {
 
     public static Player thePlayer;
-    private static Inventar inv;
 
     public static void main(String[] args){
 
@@ -22,7 +21,6 @@ public class Main {
         HealthPot healthPot = new HealthPot();
 
         healthPot.setNumInInventory(7);
-        inv.refreshInv();
 
 
 

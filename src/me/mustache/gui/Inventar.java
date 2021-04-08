@@ -27,6 +27,7 @@ public class Inventar extends JFrame {
         setLayout(null);
         setVisible(true);
 
+
         healthPot();
 
     }
@@ -53,8 +54,5 @@ public class Inventar extends JFrame {
 
     }
 
-    public void refreshInv(){
-        repaint();
-    }
 
 }
