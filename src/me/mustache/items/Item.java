@@ -6,11 +6,11 @@ public abstract class Item {
 	protected String desc;
 	protected int id;
 
-	public Item(String pName,String pDesc, int pId) {
+	public Item(String pName, String pDesc, int pID) {
 
 		name = pName;
 		desc = pDesc;
-		id = pId;
+		id = pID;
 
 
 	}
