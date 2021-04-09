@@ -1,7 +1,6 @@
 package me.mustache.spells;
 
-import me.mustache.character.Health;
-import me.mustache.character.Mana;
+import me.mustache.character.Stats;
 import me.mustache.main.Main;
 import java.lang.*;
 
@@ -14,20 +13,19 @@ public class RegenerationSpell extends Spell{
     @Override
     public void useSpell() {
 
-        Health health = Main.thePlayer.getHealth();
-        Mana mana = Main.thePlayer.getMana();
+        Stats stats = Main.thePlayer.getStats();
 
-        int currentH = health.getHealth();
-        int maxH = health.getMaxHealth();
-        int currentM = mana.getMana();
+        int currentH = stats.getCurrHp();
+        int maxH = stats.getMaxHp();
+        int currentM = stats.getCurrMana();
 
 
         for (int i = 0; i < 20; i++) {
 
             if (currentM > manaC) {
                 if (currentH < maxH - 20) {
-                    health.setHealth(currentH + 1);
-                    mana.setMana(currentM - manaC);
+                    stats.setCurrHp(currentH + 1);
+                    stats.setCurrMana(currentM - manaC);
                 }
             }
             try {

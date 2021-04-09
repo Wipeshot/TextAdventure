@@ -1,19 +1,19 @@
 package me.mustache.character;
 
+import me.mustache.items.Item;
+
 public class Player {
 
-    private Health health;
-    private Mana mana;
     private Hunger hunger;
     private static String name;
     private boolean alive;
 
+    private Stats stats;
+
     public Player() {
-        health = new Health();
-        mana = new Mana();
+        stats = new Stats(100,100,0,100,100,10,10,10,10,10,10);
         hunger = new Hunger();
     }
-
 
     public void setName(String pName) {
         name = pName;
@@ -31,14 +31,6 @@ public class Player {
         return alive;
     }
 
-    public Health getHealth() {
-        return health;
-    }
-
-
-    public Mana getMana() {
-        return mana;
-    }
 
     public Hunger getHunger() {
         return hunger;
@@ -50,5 +42,26 @@ public class Player {
 
     public Hunger getMaxHunger() {
         return hunger;
+    }
+
+    public Stats getStats() {
+        return stats;
+    }
+
+    public void setStats(Stats stats) {
+        this.stats = stats;
+    }
+
+    public void equipItem(Item item)
+    {
+
+    }
+    public void unequipItem(Item item)
+    {
+
+    }
+    public void canEquip(Item item)
+    {
+
     }
 }

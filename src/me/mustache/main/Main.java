@@ -2,13 +2,11 @@ package me.mustache.main;
 
 import me.mustache.character.Player;
 
-import me.mustache.gui.Inventar;
+import me.mustache.consumables.Bread;
 import me.mustache.gui.StartGui;
 import me.mustache.gui.MetadataInventar;
-import me.mustache.location.City;
-import me.mustache.pots.HealthPot;
-import me.mustache.pots.ManaPot;
-import me.mustache.trade.PotTrader;
+import me.mustache.consumables.HealthPot;
+import me.mustache.consumables.ManaPot;
 
 
 public class Main {
@@ -20,15 +18,15 @@ public class Main {
 
         thePlayer = new Player();
         new StartGui();
-        MetadataInventar.getInstance().addPot(new HealthPot());
-        MetadataInventar.getInstance().addPot(new HealthPot());
-        MetadataInventar.getInstance().addPot(new HealthPot());
-        MetadataInventar.getInstance().addPot(new HealthPot());
-        MetadataInventar.getInstance().addPot(new ManaPot());
-        MetadataInventar.getInstance().addPot(new ManaPot());
-        MetadataInventar.getInstance().addPot(new ManaPot());
-        MetadataInventar.getInstance().addPot(new ManaPot());
-        MetadataInventar.getInstance().addPot(new ManaPot());
+        MetadataInventar.getInstance().addConsumable(new HealthPot());
+        MetadataInventar.getInstance().addConsumable(new HealthPot());
+        MetadataInventar.getInstance().addConsumable(new HealthPot());
+        MetadataInventar.getInstance().addConsumable(new HealthPot());
+        MetadataInventar.getInstance().addConsumable(new ManaPot());
+        MetadataInventar.getInstance().addConsumable(new ManaPot());
+        MetadataInventar.getInstance().addConsumable(new ManaPot());
+        MetadataInventar.getInstance().addConsumable(new ManaPot());
+        MetadataInventar.getInstance().addConsumable(new Bread());
 
 
 

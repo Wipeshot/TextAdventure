@@ -2,12 +2,17 @@ package me.mustache.gui;
 
 
 
-import me.mustache.pots.Pot;
+import me.mustache.consumables.Consumable;
+import me.mustache.items.Item;
 
 import java.util.ArrayList;
 
 public class MetadataInventar {
-    private static ArrayList<Pot> pots = new ArrayList<>();
+    private static ArrayList<Consumable> consumables = new ArrayList<>();
+
+    private static ArrayList<Item> items = new ArrayList<>();
+    private static int currentCapacity = consumables.size() + items.size();
+    private static int maxCapacity = 50;
     private static MetadataInventar instance = null;
     public static MetadataInventar getInstance() {
         if (instance == null) {
@@ -15,50 +20,102 @@ public class MetadataInventar {
         }
         return instance;
     }
-    public static void addPot(Pot pot)
+    private static boolean canAdd()
     {
-        pots.add(pot);
+        boolean retVal = false;
+        if(currentCapacity < maxCapacity) retVal = true;
+        return retVal;
     }
-    private boolean hasPot(String name)
+    public static void addConsumable(Consumable consumable)
     {
-        return getAllCurrentPotsAsStringList().contains(name);
+        if(canAdd()) consumables.add(consumable);
     }
-    public void usePot(String name)
+    public static void addItem(Item item)
     {
-        System.out.println(hasPot(name));
-        if(hasPot(name))
+        if(canAdd()) items.add(item);
+    }
+
+    private boolean hasConsumable(String name)
+    {
+        return getAllCurrentConsumablesAsStringList().contains(name);
+    }
+    public void useConsumable(String name)
+    {
+        System.out.println(hasConsumable(name));
+        if(hasConsumable(name))
         {
-            pots.get(findPotIndex(name)).useItem();
-            pots.remove(findPotIndex(name));
-            System.out.println(getAmountOfPot(name));
+            consumables.get(findConsumableIndex(name)).useItem();
+            consumables.remove(findConsumableIndex(name));
+            System.out.println(getAmountOfConsumable(name));
         }
     }
-    public int findPotIndex(String name)
+    public void equipItem(String name)
     {
-        for (Pot p: pots) {
+        System.out.println(hasConsumable(name));
+        if(hasConsumable(name))
+        {
+            consumables.get(findConsumableIndex(name)).useItem();
+            consumables.remove(findConsumableIndex(name));
+            System.out.println(getAmountOfConsumable(name));
+        }
+    }
+    public int findConsumableIndex(String name)
+    {
+        for (Consumable p: consumables) {
             if(p.getName().equals(name))
-                return pots.indexOf(p);
+                return consumables.indexOf(p);
         }
         return 0;
     }
 
-    public int getAmountOfPot(String name)
+    public int findItemIndex(String name)
+    {
+        for (Item i: items) {
+            if(i.getName().equals(name))
+                return consumables.indexOf(i);
+        }
+        return 0;
+    }
+
+    public int getAmountOfConsumable(String name)
     {
         int count =0;
-        for (Pot p: pots) {
+        for (Consumable p: consumables) {
             if(p.getName().equals(name))
                 count++;
         }
         return count;
     }
-    public ArrayList<String> getAllCurrentPotsAsStringList()
+    public int getAmountOfItem(String name)
+    {
+        int count =0;
+        for (Item i: items) {
+            if(i.getName().equals(name))
+                count++;
+        }
+        return count;
+    }
+    public ArrayList<String> getAllCurrentConsumablesAsStringList()
     {
         ArrayList<String> allItems = new ArrayList<>();
-        for (Pot pot: pots)
+        for (Consumable consumable : consumables)
         {
-            if(!allItems.contains(pot.getName()))
+            if(!allItems.contains(consumable.getName()))
             {
-                allItems.add(pot.getName());
+                allItems.add(consumable.getName());
+            }
+        }
+        return allItems;
+
+    }
+    public ArrayList<String> getAllCurrentItemsAsStringList()
+    {
+        ArrayList<String> allItems = new ArrayList<>();
+        for (Item item: items)
+        {
+            if(!allItems.contains(item.getName()))
+            {
+                allItems.add(item.getName());
             }
         }
         return allItems;

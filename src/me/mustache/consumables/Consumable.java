@@ -1,11 +1,11 @@
-package me.mustache.pots;
+package me.mustache.consumables;
 
-public abstract class Pot {
+public abstract class Consumable {
 
     protected String name;
     protected String description;
 
-    public Pot(String pName,String pDescription){
+    public Consumable(String pName, String pDescription){
 
         name = pName;
         description = pDescription;

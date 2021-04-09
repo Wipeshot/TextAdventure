@@ -1,10 +1,10 @@
-package me.mustache.pots;
+package me.mustache.consumables;
 
-import me.mustache.character.Mana;
+import me.mustache.character.Stats;
 import me.mustache.gui.MetadataInventar;
 import me.mustache.main.Main;
 
-public class ManaPot extends Pot {
+public class ManaPot extends Consumable {
 
 
     public ManaPot(){
@@ -16,16 +16,16 @@ public class ManaPot extends Pot {
     @Override
     public void useItem() {
 
-        Mana mana = Main.thePlayer.getMana();
+        Stats stats = Main.thePlayer.getStats();
 
-        int currentM = mana.getMana();
-        int maxM = mana.getMaxMana();
+        int currentM = stats.getCurrMana();
+        int maxM = stats.getMaxMana();
 
-        if(inv.getAmountOfPot(name) >= 1) {
+        if(inv.getAmountOfConsumable(name) >= 1) {
             if (currentM < maxM - 20) {
-                mana.setMana(currentM + 20);
+                stats.setCurrMana(currentM + 20);
             } else if (currentM + 20 >= maxM) {
-                mana.setMana(maxM);
+                stats.setCurrMana(maxM);
             }
         }
     }

@@ -1,30 +1,35 @@
-package me.mustache.spells;
+package me.mustache.consumables;
 
 import me.mustache.character.Stats;
+import me.mustache.gui.MetadataInventar;
 import me.mustache.main.Main;
 
-public class HealSpell extends Spell {
+public class HealthPot extends Consumable {
 
-    public HealSpell() {
-        super("Heilzauber", "Heilt dich um 20LP.", 20);
+    public HealthPot() {
+        super("Heiltrank", "Dieser Trank heilt dich um 20LP.");
+
+
     }
+    MetadataInventar inv = MetadataInventar.getInstance();
+
 
     @Override
-    public void useSpell() {
+    public void useItem() {
 
         Stats stats = Main.thePlayer.getStats();
 
         int currentH = stats.getCurrHp();
         int maxH = stats.getMaxHp();
-        int currentM = stats.getCurrMana();
 
-        if (currentM > manaC) {
+        if(inv.getAmountOfConsumable(name) >= 1) {
             if (currentH < maxH - 20) {
                 stats.setCurrHp(currentH + 20);
             } else if (currentH + 20 >= maxH) {
                 stats.setCurrHp(maxH);
             }
+            System.out.println(stats.getCurrHp());
         }
-        stats.setCurrMana(currentM - manaC);
     }
+
 }

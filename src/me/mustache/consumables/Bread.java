@@ -1,21 +1,20 @@
-package me.mustache.food;
+package me.mustache.consumables;
 
 import me.mustache.character.Hunger;
-import me.mustache.character.Player;
 import me.mustache.main.Main;
 
-public class Bread extends Food{
+public class Bread extends Consumable{
 
-    private int hungerC;
-
+    private int hungerC = 20;
     public Bread(){
-        super ("Brot", "Ein billiges Gebäck.", 20);
+        super ("Brot", "Ein billiges Gebäck.");
 
     }
 
-    @Override
-    public void useFood(){
 
+    @Override
+    public void useItem()
+    {
         Hunger hunger = Main.thePlayer.getHunger();
 
 
@@ -26,5 +25,4 @@ public class Bread extends Food{
             hunger.setHunger(currentH+hungerC);
         }
     }
-
 }

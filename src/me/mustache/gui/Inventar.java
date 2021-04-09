@@ -1,14 +1,8 @@
 package me.mustache.gui;
 
-import me.mustache.pots.HealthPot;
-import me.mustache.pots.Pot;
-
 import javax.swing.*;
 import java.awt.*;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-
-import static java.lang.Math.*;
 
 public class Inventar extends JFrame {
 
@@ -38,21 +32,38 @@ public class Inventar extends JFrame {
         int posYLabel=0;
         int posYNum=0;
 
-        ArrayList<String> allPots = inv.getAllCurrentPotsAsStringList();
-        for (String str: allPots ) {
+        ArrayList<String> allConsumables = inv.getAllCurrentConsumablesAsStringList();
+        ArrayList<String> allItems = inv.getAllCurrentItemsAsStringList();
+        for (String str: allConsumables ) {
             JLabel itemName = new JLabel(str);
             itemName.setBounds((int) Math.round(windowX*0.05), posYLabel*40, (int) Math.round(windowX*0.4), (int) Math.round(windowY*0.125));
             add(itemName);
             JButton useItem = new JButton("Benutzen");
-            JLabel numInventory = new JLabel(String.valueOf(inv.getAmountOfPot(str)));
+            JLabel numInventory = new JLabel(String.valueOf(inv.getAmountOfConsumable(str)));
             numInventory.setBounds((int) Math.round(windowX*0.45),posYLabel*40, (int) Math.round( windowX*0.166), (int) Math.round(windowY*0.125));
             add(numInventory);
             useItem.setBounds((int) Math.round( windowX*0.616), posYLabel*40, (int) Math.round( windowX*0.344), (int) Math.round( windowY*0.125));
             add(useItem);
             useItem.addActionListener(e -> {
-                        inv.usePot(str);
-                        numInventory.setText(String.valueOf(inv.getAmountOfPot(str)));
+                        inv.useConsumable(str);
+                        numInventory.setText(String.valueOf(inv.getAmountOfConsumable(str)));
                     });
+            posYLabel++;
+        }
+        for (String str: allItems ) {
+            JLabel itemName = new JLabel(str);
+            itemName.setBounds((int) Math.round(windowX*0.05), posYLabel*40, (int) Math.round(windowX*0.4), (int) Math.round(windowY*0.125));
+            add(itemName);
+            JButton useItem = new JButton("Ausrüsten");
+            JLabel numInventory = new JLabel(String.valueOf(inv.getAmountOfConsumable(str)));
+            numInventory.setBounds((int) Math.round(windowX*0.45),posYLabel*40, (int) Math.round( windowX*0.166), (int) Math.round(windowY*0.125));
+            add(numInventory);
+            useItem.setBounds((int) Math.round( windowX*0.616), posYLabel*40, (int) Math.round( windowX*0.344), (int) Math.round( windowY*0.125));
+            add(useItem);
+            useItem.addActionListener(e -> {
+                inv.useConsumable(str);
+                numInventory.setText(String.valueOf(inv.getAmountOfConsumable(str)));
+            });
             posYLabel++;
         }
 
