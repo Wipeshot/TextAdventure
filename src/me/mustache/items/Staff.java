@@ -1,5 +1,5 @@
 package me.mustache.items;
 
-public abstract class Stuff {
+public abstract class Staff {
 
 }
