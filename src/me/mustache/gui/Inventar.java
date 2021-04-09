@@ -10,9 +10,8 @@ import static java.lang.Math.*;
 
 public class Inventar extends JFrame {
 
-    HealthPot healthPot = new HealthPot();
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-
+    MetadataInventar inv = MetadataInventar.getInstance();
     private int screenX = (int) screenSize.getWidth();
     private int screenY = (int) screenSize.getHeight();
 
@@ -35,8 +34,8 @@ public class Inventar extends JFrame {
 
     public void healthPot(){
 
-        JLabel itemName = new JLabel(healthPot.getName());
-        JLabel numInventory = new JLabel(String.valueOf(healthPot.getNumInInventory()));
+        JLabel itemName = new JLabel(inv.getHealthPot().getName());
+        JLabel numInventory = new JLabel(String.valueOf(inv.getAmountOfPot(inv.getHealthPot().getName())));
         JButton useItem = new JButton("Benutzen");
 
         itemName.setBounds((int) Math.round(windowX*0.05), 0, (int) Math.round(windowX*0.4), (int) Math.round(windowY*0.125));
@@ -48,7 +47,7 @@ public class Inventar extends JFrame {
         add(useItem);
 
         useItem.addActionListener(e -> {
-            healthPot.useItem();
+                    inv.useHealthPot();
                 }
                 );
 

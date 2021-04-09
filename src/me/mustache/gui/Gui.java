@@ -54,7 +54,7 @@ public class Gui extends JFrame {
 
 
 	public void openInventar(){
-		new Inventar(Player.getName());
+		new Inventar("s");
 	}
 
 
