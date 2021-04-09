@@ -6,7 +6,7 @@ import me.mustache.main.Main;
 public class ManaPot extends Pot {
 
     public ManaPot(){
-        super("Manatrank", "Dieser Trank erhöht dein Mana um 20");
+        super("Manatrank ", "Dieser Trank erhöht dein Mana um 20");
 
     }
 
