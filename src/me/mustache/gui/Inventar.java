@@ -5,6 +5,8 @@ import me.mustache.pots.Pot;
 
 import javax.swing.*;
 import java.awt.*;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 import static java.lang.Math.*;
 
@@ -27,31 +29,37 @@ public class Inventar extends JFrame {
         setVisible(true);
 
 
-        healthPot();
+        setupInventory();
 
     }
 
+    private void setupInventory()
+    {
+        int posYLabel=0;
+        int posYNum=0;
 
-    public void healthPot(){
+        ArrayList<String> allPots = inv.getAllCurrentPotsAsStringList();
+        for (String str: allPots ) {
+            JLabel itemName = new JLabel(str);
+            itemName.setBounds((int) Math.round(windowX*0.05), posYLabel*30, (int) Math.round(windowX*0.4), (int) Math.round(windowY*0.125));
+            add(itemName);
+            JButton useItem = new JButton("Benutzen");
+            JLabel numInventory = new JLabel(String.valueOf(inv.getAmountOfPot(str)));
+            numInventory.setBounds((int) Math.round(windowX*0.45),posYLabel*30, (int) Math.round( windowX*0.166), (int) Math.round(windowY*0.125));
+            add(numInventory);
+            useItem.setBounds((int) Math.round( windowX*0.616), posYLabel*30, (int) Math.round( windowX*0.344), (int) Math.round( windowY*0.125));
+            add(useItem);
+            useItem.addActionListener(e -> {
+                        inv.usePot(str);
+                        numInventory.setText(String.valueOf(inv.getAmountOfPot(str)));
+                    });
+            posYLabel++;
+        }
 
-        JLabel itemName = new JLabel(inv.getHealthPot().getName());
-        JLabel numInventory = new JLabel(String.valueOf(inv.getAmountOfPot(inv.getHealthPot().getName())));
-        JButton useItem = new JButton("Benutzen");
 
-        itemName.setBounds((int) Math.round(windowX*0.05), 0, (int) Math.round(windowX*0.4), (int) Math.round(windowY*0.125));
-        numInventory.setBounds((int) Math.round(windowX*0.45),0, (int) Math.round( windowX*0.166), (int) Math.round(windowY*0.125));
-        useItem.setBounds((int) Math.round( windowX*0.616), 0, (int) Math.round( windowX*0.344), (int) Math.round( windowY*0.125));
-
-        add(itemName);
-        add(numInventory);
-        add(useItem);
-
-        useItem.addActionListener(e -> {
-                    inv.useHealthPot();
-                }
-                );
 
     }
+
 
 
 }

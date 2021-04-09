@@ -19,28 +19,29 @@ public class MetadataInventar {
     {
         pots.add(pot);
     }
-    private boolean hasPot()
+    private boolean hasPot(String name)
     {
-        return !pots.isEmpty();
+        return getAllCurrentPotsAsStringList().contains(name);
     }
-    public void useHealthPot()
+    public void usePot(String name)
     {
-        if(hasPot())
+        System.out.println(hasPot(name));
+        if(hasPot(name))
         {
-            pots.get(0).useItem();
-            pots.remove(0);
+            pots.get(findPotIndex(name)).useItem();
+            pots.remove(findPotIndex(name));
+            System.out.println(getAmountOfPot(name));
         }
     }
-
-    public Pot getHealthPot()
+    public int findPotIndex(String name)
     {
-        if(hasPot())
-        {
-            return pots.get(0);
+        for (Pot p: pots) {
+            if(p.getName().equals(name))
+                return pots.indexOf(p);
         }
-        return pots.get(0);
-
+        return 0;
     }
+
     public int getAmountOfPot(String name)
     {
         int count =0;
@@ -49,6 +50,18 @@ public class MetadataInventar {
                 count++;
         }
         return count;
+    }
+    public ArrayList<String> getAllCurrentPotsAsStringList()
+    {
+        ArrayList<String> allItems = new ArrayList<>();
+        for (Pot pot: pots)
+        {
+            if(!allItems.contains(pot.getName()))
+            {
+                allItems.add(pot.getName());
+            }
+        }
+        return allItems;
     }
 
 }

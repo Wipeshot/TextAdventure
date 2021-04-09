@@ -29,9 +29,6 @@ public class HealthPot extends Pot {
                 health.setHealth(maxH);
             }
             System.out.println(health.getHealth());
-        }else {
-            System.out.println("health.getHealth()");
-            return;
         }
     }
 
