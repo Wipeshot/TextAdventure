@@ -41,13 +41,13 @@ public class Inventar extends JFrame {
         ArrayList<String> allPots = inv.getAllCurrentPotsAsStringList();
         for (String str: allPots ) {
             JLabel itemName = new JLabel(str);
-            itemName.setBounds((int) Math.round(windowX*0.05), posYLabel*30, (int) Math.round(windowX*0.4), (int) Math.round(windowY*0.125));
+            itemName.setBounds((int) Math.round(windowX*0.05), posYLabel*40, (int) Math.round(windowX*0.4), (int) Math.round(windowY*0.125));
             add(itemName);
             JButton useItem = new JButton("Benutzen");
             JLabel numInventory = new JLabel(String.valueOf(inv.getAmountOfPot(str)));
-            numInventory.setBounds((int) Math.round(windowX*0.45),posYLabel*30, (int) Math.round( windowX*0.166), (int) Math.round(windowY*0.125));
+            numInventory.setBounds((int) Math.round(windowX*0.45),posYLabel*40, (int) Math.round( windowX*0.166), (int) Math.round(windowY*0.125));
             add(numInventory);
-            useItem.setBounds((int) Math.round( windowX*0.616), posYLabel*30, (int) Math.round( windowX*0.344), (int) Math.round( windowY*0.125));
+            useItem.setBounds((int) Math.round( windowX*0.616), posYLabel*40, (int) Math.round( windowX*0.344), (int) Math.round( windowY*0.125));
             add(useItem);
             useItem.addActionListener(e -> {
                         inv.usePot(str);
