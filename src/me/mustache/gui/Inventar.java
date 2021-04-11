@@ -62,7 +62,7 @@ public class Inventar extends JFrame {
             add(useItem);
             useItem.addActionListener(e -> {
                 inv.useConsumable(str);
-                numInventory.setText(String.valueOf(inv.getAmountOfConsumable(str)));
+                numInventory.setText(String.valueOf(inv.getAmountOfItem(str)));
             });
             posYLabel++;
         }
