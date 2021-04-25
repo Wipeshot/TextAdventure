@@ -60,6 +60,7 @@ public class Player {
     {
 
     }
+
     public void canEquip(Item item)
     {
 
