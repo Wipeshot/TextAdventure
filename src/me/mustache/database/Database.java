@@ -48,8 +48,8 @@ public class Database {
         return url;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public static void setUrl(String url) {
+        Database.url = url;
     }
 
     public String getFirstStory(){
