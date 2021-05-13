@@ -1,15 +1,12 @@
 package me.mustache.database;
 
-import java.sql.Connection;
-import java.sql.DatabaseMetaData;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 
 
 public class Database {
 
-    //private static List<String> answers;
     private static String[] answers = new String[4];
+    private Statement statement = null;
 
     public Database(){
 
@@ -44,11 +41,11 @@ public class Database {
                 + ");";
     }
 
-    public static void insertIntoStory(String story, String answerIds){
-        String insertStory = "INSERT INTO story(storyText, answerIds)\n"
+        public static void insertIntoStory(String story, String answerIds) throws SQLException{
+            String insertStory = "INSERT INTO story(storyText, answerIds)\n"
                     + " VALUES(" + story + ", " + answerIds + ")"
                     + " ;";
-    }
+        }
 
     public static void insertIntoAnswer(String answer){
         String insertAnswer = "INSERT INTO answer(answerText)"
