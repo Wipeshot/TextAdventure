@@ -4,6 +4,9 @@ import me.mustache.character.Player;
 import me.mustache.trade.PotTrader;
 
 import java.awt.*;
+import java.awt.event.ActionListener;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -108,7 +111,7 @@ public class Gui extends JFrame {
 			choicePressed(2);
 		});
 		lowerRightBtn.addActionListener(e -> {
-			choicePressed(4);
+			choicePressed(3);
 		});
 		choicesPanel.add(upperLeftBtn);
 		choicesPanel.add(upperRightBtn);
@@ -155,14 +158,29 @@ public class Gui extends JFrame {
 		storyArea.append("\n\n");
 		storyArea.append(str);
 	}
-	public static void setChoices(String[] choices)
+	// oder man macht eine klasse Answer dann würde die datenbank eine arrayList<Answer> hier rein geben was cooler ist.
+	// und vielleicht eine answerButton klasse die von jbutton erbt weil das so wie wir das jetzt machen whack is
+	public static void setChoices(ArrayList<String> texts, int[] ids)
 	{
-
+		setButton(upperLeftBtn,texts.get(0),ids[0]);
+		setButton(upperRightBtn,texts.get(1),ids[1]);
+		setButton(lowerLeftBtn,texts.get(2),ids[2]);
+		setButton(lowerRightBtn,texts.get(3),ids[3]);
+	}
+	private static void setButton(JButton btn, String text,int id)
+	{
+		btn.setText(text);
+			for( ActionListener act : btn.getActionListeners() ) {
+				btn.removeActionListener( act );
+			}
+		btn.addActionListener(e -> {
+			choicePressed(id);
+		});
 	}
 
 	private static void choicePressed(int id)
 	{
-
+		System.out.println("Antwort mit der ID:" +id+" wurde gedrückt");
 	}
 
 	}
