@@ -9,11 +9,6 @@ import me.mustache.gui.MetadataInventar;
 import me.mustache.consumables.HealthPot;
 import me.mustache.consumables.ManaPot;
 
-import java.sql.Connection;
-import java.sql.DatabaseMetaData;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-
 
 public class Main {
 
@@ -34,8 +29,26 @@ public class Main {
         MetadataInventar.getInstance().addConsumable(new ManaPot());
         MetadataInventar.getInstance().addConsumable(new Bread());
 
-         Database.createNewDatabase("test.db");
 
+        /*
+        Database.createNewDatabase("test.db");
+        Database.createStory();
+
+        Database.insertIntoAnswer("Antwort 1");
+        Database.insertIntoAnswer("Antwort 2");
+        Database.insertIntoAnswer("Antwort 3");
+        Database.insertIntoAnswer("Antwort 4");
+        Database.insertIntoStory("Story 1", "0,1,2,3");
+
+        String[] answer = new String[4];
+        answer = Database.getFirstAnswers();
+
+        for(int i = 0; i < answer.length; i++){
+            System.out.println(answer[i]);
+        }
+
+        System.out.println(Database.getFirstStory());
+        */
 
     }
 
