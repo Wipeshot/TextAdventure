@@ -48,7 +48,7 @@ public class StartGui extends JFrame{
             Player p = new Player();
             p.setName(fieldName.getText());
             this.dispose();
-            new Gui();
+            Gui.getInstance();
         });
 
 

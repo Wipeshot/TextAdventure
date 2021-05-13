@@ -4,7 +4,7 @@ import me.mustache.character.Player;
 
 import me.mustache.consumables.Bread;
 import me.mustache.database.Database;
-import me.mustache.gui.StartGui;
+import me.mustache.gui.*;
 import me.mustache.gui.MetadataInventar;
 import me.mustache.consumables.HealthPot;
 import me.mustache.consumables.ManaPot;
