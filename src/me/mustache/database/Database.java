@@ -8,6 +8,7 @@ public class Database {
     private static String[] answers = new String[4];
     private static int[] answerIds = new int[4];
     private static String answerIdsString;
+    private static int[] storyId = new int[4];
     private static String url;
     private static String firstStory;
     private static String storyByAnswer;
@@ -133,7 +134,7 @@ public class Database {
     }
 
     public static String[] getFirstAnswers(){
-        String sql = "SELECT answerText\n"
+        String sql = "SELECT answerText, storyId\n"
                 + " FROM answer\n"
                 + " WHERE answerId = ?";
         String[] answers = new String[4];
@@ -143,6 +144,7 @@ public class Database {
                 pstmt.setInt(1, i+1);
                 ResultSet rs = pstmt.executeQuery();
                 answers[i] = rs.getString("answerText");
+                storyId[i] = rs.getInt("storyId");
             }
             catch (SQLException e) {
                 System.out.println(e.getMessage());
@@ -152,6 +154,10 @@ public class Database {
         }
 
         return answers;
+    }
+
+    public static int[] getNextStory(){
+        return storyId;
     }
 
     public static String getStoryByAnswer(int answerId){

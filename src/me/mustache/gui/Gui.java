@@ -1,6 +1,7 @@
 package me.mustache.gui;
 
 import me.mustache.character.Player;
+import me.mustache.database.Database;
 import me.mustache.trade.PotTrader;
 
 import java.awt.*;
@@ -25,11 +26,12 @@ public class Gui extends JFrame {
 
 	 static int windowWidth = (int) (screenWidth*0.7);
 	 static int windowHeight = (int) (screenHeight*0.7);
+	 static private String[] answer = Database.getFirstAnswers();
 	 static private JTextArea storyArea = new JTextArea();
-	 static private JButton upperLeftBtn = new JButton("Antwort 1");
-	static private JButton upperRightBtn = new JButton("Antwort 2");
-	static private JButton lowerLeftBtn = new JButton("Antwort 3");
-	static private JButton lowerRightBtn = new JButton("Antwort 4");
+	 static private JButton upperLeftBtn = new JButton(answer[0]);
+	static private JButton upperRightBtn = new JButton(answer[1]);
+	static private JButton lowerLeftBtn = new JButton(answer[2]);
+	static private JButton lowerRightBtn = new JButton(answer[3]);
 
 	private static Gui instance = null;
 	public static Gui getInstance() {
@@ -65,7 +67,7 @@ public class Gui extends JFrame {
 		mapPanel.setBounds(characterPanel.getWidth()+storyPanel.getWidth(),envPanel.getY()+envPanel.getHeight(),200,windowHeight-envPanel.getHeight()-encounterPanel.getHeight()-40);
 		storyArea.setForeground(Color.GREEN);
 		storyArea.setBackground(Color.BLACK);
-		storyArea.setText("Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. ");
+		storyArea.setText(Database.getFirstStory());
 		storyArea.setLineWrap(true);
 		storyArea.setWrapStyleWord(true);
 		storyArea.setEditable(false);
@@ -101,17 +103,38 @@ public class Gui extends JFrame {
 		lowerRightBtn.setBackground(Color.BLACK);
 		lowerRightBtn.setForeground(Color.GREEN);
 
+
 		upperLeftBtn.addActionListener(e -> {
 			choicePressed(0);
+			int[] nextStory = Database.getNextStory();
+			int[] nextAnswerId = Database.getAnswerIdsByStory(nextStory[0]);
+			String[] nextAnswer = Database.getAnswersByStory(nextStory[0]);
+			addToStory(Database.getStoryByAnswer(nextStory[0]-1));
+			setChoices(nextAnswer, nextAnswerId);
 		});
 		upperRightBtn.addActionListener(e -> {
 			choicePressed(1);
+			int[] nextStory = Database.getNextStory();
+			int[] nextAnswerId = Database.getAnswerIdsByStory(nextStory[1]);
+			String[] nextAnswer = Database.getAnswersByStory(nextStory[1]);
+			addToStory(Database.getStoryByAnswer(nextStory[1]-1));
+			setChoices(nextAnswer, nextAnswerId);
 		});
 		lowerLeftBtn.addActionListener(e -> {
 			choicePressed(2);
+			int[] nextStory = Database.getNextStory();
+			int[] nextAnswerId = Database.getAnswerIdsByStory(nextStory[2]);
+			String[] nextAnswer = Database.getAnswersByStory(nextStory[2]);
+			addToStory(Database.getStoryByAnswer(nextStory[2]-1));
+			setChoices(nextAnswer, nextAnswerId);
 		});
 		lowerRightBtn.addActionListener(e -> {
 			choicePressed(3);
+			int[] nextStory = Database.getNextStory();
+			int[] nextAnswerId = Database.getAnswerIdsByStory(nextStory[3]);
+			String[] nextAnswer = Database.getAnswersByStory(nextStory[3]);
+			addToStory(Database.getStoryByAnswer(nextStory[3]-1));
+			setChoices(nextAnswer, nextAnswerId);
 		});
 		choicesPanel.add(upperLeftBtn);
 		choicesPanel.add(upperRightBtn);
@@ -142,7 +165,6 @@ public class Gui extends JFrame {
 		add(mapPanel);
 		setLayout(null);
 
-		addToStory("Ich komme bald aus der Datenbank wenn wipeshit das gemacht hat.");
 
 
 
@@ -159,12 +181,12 @@ public class Gui extends JFrame {
 		storyArea.append(str);
 	}
 
-	public static void setChoices(ArrayList<String> texts, int[] ids)
+	public static void setChoices(String[] texts, int[] ids)
 	{
-		setButton(upperLeftBtn,texts.get(0),ids[0]);
-		setButton(upperRightBtn,texts.get(1),ids[1]);
-		setButton(lowerLeftBtn,texts.get(2),ids[2]);
-		setButton(lowerRightBtn,texts.get(3),ids[3]);
+		setButton(upperLeftBtn,texts[0],ids[0]);
+		setButton(upperRightBtn,texts[1],ids[1]);
+		setButton(lowerLeftBtn,texts[2],ids[2]);
+		setButton(lowerRightBtn,texts[3],ids[3]);
 	}
 	private static void setButton(JButton btn, String text,int id)
 	{
