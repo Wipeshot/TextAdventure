@@ -12,6 +12,7 @@ import me.mustache.consumables.ManaPot;
 import javax.xml.crypto.Data;
 import java.sql.SQLException;
 
+import static me.mustache.database.Database.getAnswersByStory;
 import static me.mustache.database.Database.insertIntoStory;
 
 
@@ -38,6 +39,7 @@ public class Main {
         MetadataInventar.getInstance().addConsumable(new ManaPot());
         MetadataInventar.getInstance().addConsumable(new Bread());
 
+
         Database.createNewDatabase("test.db");
 
         Database.createStory();
@@ -46,6 +48,16 @@ public class Main {
         Database.insertIntoAnswer("Antwort 3");
         Database.insertIntoAnswer("Antwort 4");
         Database.insertIntoStory("Story 1", "1,2,3,4");
+        Database.insertIntoStory("Story 2", "2,3,4,1");
+        Database.insertIntoStory("Story 3", "3,4,1,2");
+        Database.insertIntoStory("Story 4", "4,1,2,3");
+        Database.insertIntoStory("Story 5", "1,2,3,4");
+        Database.setStoryForAnswer(1, 2);
+        Database.setStoryForAnswer(2,3);
+        Database.setStoryForAnswer(3,4);
+        Database.setStoryForAnswer(4,5);
+
+
 
         answers = Database.getFirstAnswers();
 
@@ -54,6 +66,31 @@ public class Main {
         System.out.println(answers[1]);
         System.out.println(answers[2]);
         System.out.println(answers[3]);
+        System.out.println(Database.getStoryByAnswer(1));
+        answers = getAnswersByStory(2);
+        System.out.println(answers[0]);
+        System.out.println(answers[1]);
+        System.out.println(answers[2]);
+        System.out.println(answers[3]);
+        System.out.println(Database.getStoryByAnswer(2));
+        answers = getAnswersByStory(3);
+        System.out.println(answers[0]);
+        System.out.println(answers[1]);
+        System.out.println(answers[2]);
+        System.out.println(answers[3]);
+        System.out.println(Database.getStoryByAnswer(3));
+        answers = getAnswersByStory(4);
+        System.out.println(answers[0]);
+        System.out.println(answers[1]);
+        System.out.println(answers[2]);
+        System.out.println(answers[3]);
+        System.out.println(Database.getStoryByAnswer(4));
+        answers = getAnswersByStory(5);
+        System.out.println(answers[0]);
+        System.out.println(answers[1]);
+        System.out.println(answers[2]);
+        System.out.println(answers[3]);
+
 
     }
 

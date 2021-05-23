@@ -6,8 +6,11 @@ import java.sql.*;
 public class Database {
 
     private static String[] answers = new String[4];
+    private static int[] answerIds = new int[4];
+    private static String answerIdsString;
     private static String url;
     private static String firstStory;
+    private static String storyByAnswer;
     static Statement stmt;
 
     public Database(){
@@ -41,7 +44,9 @@ public class Database {
 
         String tableAnswer = "CREATE TABLE IF NOT EXISTS answer (\n"
                 + " answerId INTEGER PRIMARY KEY AUTOINCREMENT,\n"
-                + " answerText VARCHAR(10) NOT NULL"
+                + " answerText VARCHAR(10) NOT NULL,\n"
+                + " storyId INTEGER,\n"
+                + " FOREIGN KEY(storyId) REFERENCES story(storyId)"
                 + ");";
 
         try (Connection conn = DriverManager.getConnection(url)){
@@ -91,6 +96,24 @@ public class Database {
         }
     }
 
+    public static void setStoryForAnswer(int answerId, int storyId){
+        String insertStoryIdToAnswer = "UPDATE answer\n"
+                                    + " SET storyId = ?\n"
+                                    + " WHERE answerId = ?"
+                                    + " ;";
+        try (Connection conn = DriverManager.getConnection(url)){
+            if(conn != null){
+                PreparedStatement pstmt = conn.prepareStatement(insertStoryIdToAnswer);
+                pstmt.setInt(1, storyId);
+                pstmt.setInt(2, answerId);
+                pstmt.executeUpdate();
+                conn.close();
+            }
+        } catch(SQLException e){
+            System.out.println(e);
+        }
+    }
+
 
     public static String getFirstStory(){
         String sql = "SELECT storyText\n"
@@ -131,5 +154,68 @@ public class Database {
         return answers;
     }
 
+    public static String getStoryByAnswer(int answerId){
+        String sql = "SELECT storyText\n"
+                + " FROM story s, answer a\n"
+                + " WHERE a.storyId = s.storyId\n"
+                + " AND a.answerId = ?"
+                + " ;";
+
+            try (Connection conn = DriverManager.getConnection(url)){
+                PreparedStatement pstmt = conn.prepareStatement(sql);
+                pstmt.setInt(1, answerId);
+                ResultSet rs = pstmt.executeQuery();
+                storyByAnswer = rs.getString("storyText");
+            }
+            catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+            return storyByAnswer;
+    }
+
+    public static String[] getAnswersByStory(int storyId){
+        String sql = "SELECT answerText\n"
+                    + " FROM answer a, story s\n"
+                    + " WHERE a.answerId = ?\n"
+                    + " AND s.storyId = ?\n"
+                    + " ;";
+        for(int i = 0; i < 4; i++) {
+            try (Connection conn = DriverManager.getConnection(url)) {
+                int[] aId;
+                aId = getAnswerIdsByStory(storyId);
+                PreparedStatement pstmt = conn.prepareStatement(sql);
+                pstmt.setInt(1, aId[i]);
+                pstmt.setInt(2, storyId);
+                ResultSet rs = pstmt.executeQuery();
+                answers[i] = rs.getString("answerText");
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return answers;
+    }
+
+    public static int[] getAnswerIdsByStory(int storyId){
+        String sql = "SELECT answerIds\n"
+                + " FROM story\n"
+                + " WHERE storyId = ?"
+                + " ;";
+            try (Connection conn = DriverManager.getConnection(url)) {
+                PreparedStatement pstmt = conn.prepareStatement(sql);
+                pstmt.setInt(1, storyId);
+                ResultSet rs = pstmt.executeQuery();
+                answerIdsString = rs.getString("answerIds");
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        int i = 0;
+        for (String s : answerIdsString.split(",")) {
+            answerIds[i] = Integer.parseInt(s);
+            if(i<4) {
+                i++;
+            }
+        }
+        return answerIds;
+    }
 
 }
