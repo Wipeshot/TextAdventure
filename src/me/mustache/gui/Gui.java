@@ -158,8 +158,7 @@ public class Gui extends JFrame {
 		storyArea.append("\n\n");
 		storyArea.append(str);
 	}
-	// oder man macht eine klasse Answer dann würde die datenbank eine arrayList<Answer> hier rein geben was cooler ist.
-	// und vielleicht eine answerButton klasse die von jbutton erbt weil das so wie wir das jetzt machen whack is
+
 	public static void setChoices(ArrayList<String> texts, int[] ids)
 	{
 		setButton(upperLeftBtn,texts.get(0),ids[0]);
