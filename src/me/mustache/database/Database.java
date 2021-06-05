@@ -1,6 +1,7 @@
 package me.mustache.database;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 
 public class Database {
@@ -12,6 +13,8 @@ public class Database {
     private static String url;
     private static String firstStory;
     private static String storyByAnswer;
+    private static int nextStoryId;
+    private static int[] currentAnswerId = new int[4];
     static Statement stmt;
 
     public Database(){
@@ -156,8 +159,22 @@ public class Database {
         return answers;
     }
 
-    public static int[] getNextStory(){
-        return storyId;
+    public static int getNextStoryId(int answerId){
+        String nextStory = "SELECT storyId\n"
+                + " FROM story s, answer a\n"
+                + " WHERE a.storyId = s.storyId\n"
+                + " AND a.storyId = ?"
+                + " ;";
+        try (Connection conn = DriverManager.getConnection(url)){
+            PreparedStatement pstmt = conn.prepareStatement(nextStory);
+            pstmt.setInt(1, answerId);
+            ResultSet rs = pstmt.executeQuery();
+            nextStoryId = rs.getInt("storyId");
+        }
+        catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return nextStoryId;
     }
 
     public static String getStoryByAnswer(int answerId){
@@ -223,5 +240,124 @@ public class Database {
         }
         return answerIds;
     }
+
+    public static void createHaendler(){
+        String createHaendler = "CREATE TABLE IF NOT EXISTS haendler (\n"
+                + " haendlerId INTEGER PRIMARY KEY AUTOINCREMENT,\n"
+                + " haendlerName TEXT NOT NULL\n"
+                + ");";
+        try (Connection conn = DriverManager.getConnection(url)){
+            if(conn != null){
+                stmt = conn.createStatement();
+                stmt.executeUpdate(createHaendler);
+                stmt.close();
+                conn.close();
+            }
+        } catch(SQLException e){
+            System.out.println(e);
+        }
+    }
+
+    public static void createNewHaendler(String name){
+        String createNewHaendler = "INSERT INTO haendler(haendlerName)\n"
+                + " VALUES(?)"
+                + " ;";
+
+        try (Connection conn = DriverManager.getConnection(url)){
+            PreparedStatement pstmt = conn.prepareStatement(createNewHaendler);
+            pstmt.setString(1, name);
+        }
+        catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void createHaendlerInventar(){
+        String createHaendlerInventar = "CREATE TABLE IF NOT EXISTS haendlerInventar"
+                + " haendlerInventarId INTEGER PRIMARY KEY AUTOINCREMENT,\n"
+                + " itemId INTEGER NOT NULL,\n"
+                + " anzahl INTEGER NOT NULL,\n"
+                + " haendlerId INTEGER NOT NULL,\n"
+                + " FOREIGN KEY(itemId) REFERENCES item(itemId),\n"
+                + " FOREIGN KEY(haendlerId) REFERENCES haendler(haendlerId)"
+                + " );";
+
+        try (Connection conn = DriverManager.getConnection(url)){
+            if(conn != null){
+                stmt = conn.createStatement();
+                stmt.executeUpdate(createHaendlerInventar);
+                stmt.close();
+                conn.close();
+            }
+        } catch(SQLException e){
+            System.out.println(e);
+        }
+    }
+
+   /* public static int[][] getHaendlerInventar(int haendlerId){
+        int[][] inventar;
+        String getInventar = "SELECT itemId, anzahl\n"
+                + " FROM haendlerInventar\n"
+                + " WHERE haendlerId = ?";
+        try (Connection conn = DriverManager.getConnection(url)){
+            PreparedStatement pstmt = conn.prepareStatement(getInventar);
+            pstmt.setInt(1, haendlerId);
+            ResultSet rs = pstmt.executeQuery();
+            ArrayList<Integer> item = new ArrayList<>();
+            ArrayList<Integer> anz = new ArrayList<>();
+            item = rs.getInt("itemId");
+            anz = rs.getInt("anzahl");
+            int i = item.size();
+            int[][] inv = new int[i][i];
+            for(int z = 0; z <= i; z++){
+                inv[z] = item.toArray();
+                inv[z][z] = anz.toArray();
+            }
+            inventar = inv;
+        }
+        catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return inventar;
+    }*/
+
+    public static void insertIntoHaendlerInventar(int haendlerId, int itemId, int anzahl ){
+        String insertIntoHaendlerInventar = "INSERT INTO haendlerInventar(haendlerId, itemId, anzahl)\n"
+                + " VALUES(?,?,?)"
+                + " ;";
+        try (Connection conn = DriverManager.getConnection(url)){
+            PreparedStatement pstmt = conn.prepareStatement(insertIntoHaendlerInventar);
+            pstmt.setInt(1, haendlerId);
+            pstmt.setInt(2, itemId);
+            pstmt.setInt(3, anzahl);
+            pstmt.executeQuery();
+            pstmt.close();
+        }
+        catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void createItemTable(){
+        String itemTable = "CREATE TABLE IF NOT EXISTS item (\n"
+                + " itemId INTEGER PRIMARY KEY AUTOINCREMENT,\n"
+                + " name TEXT,\n"
+                + " description TEXT ,\n"
+                + " price INTEGER"
+                + ");";
+
+        try (Connection conn = DriverManager.getConnection(url)){
+            if(conn != null){
+                stmt = conn.createStatement();
+                stmt.executeUpdate(itemTable);
+                stmt.close();
+                conn.close();
+            }
+        } catch(SQLException e){
+            System.out.println(e);
+        }
+    }
+
 
 }

@@ -26,6 +26,7 @@ public class Gui extends JFrame {
 
 	 static int windowWidth = (int) (screenWidth*0.7);
 	 static int windowHeight = (int) (screenHeight*0.7);
+	 static private int currentStoryId = 1;
 	 static private String[] answer = Database.getFirstAnswers();
 	 static private JTextArea storyArea = new JTextArea();
 	 static private JButton upperLeftBtn = new JButton(answer[0]);
@@ -105,36 +106,36 @@ public class Gui extends JFrame {
 
 
 		upperLeftBtn.addActionListener(e -> {
-			choicePressed(0);
-			int[] nextStory = Database.getNextStory();
-			int[] nextAnswerId = Database.getAnswerIdsByStory(nextStory[0]);
-			String[] nextAnswer = Database.getAnswersByStory(nextStory[0]);
-			addToStory(Database.getStoryByAnswer(nextStory[0]-1));
-			setChoices(nextAnswer, nextAnswerId);
+			choicePressed(1);
+			int[] answerIds = Database.getAnswerIdsByStory(currentStoryId);
+			int nextStory = Database.getNextStoryId(answerIds[0]);
+			currentStoryId = nextStory;
+			addToStory(Database.getStoryByAnswer(answerIds[0]));
+			setChoices(Database.getAnswersByStory(currentStoryId), answerIds);
 		});
 		upperRightBtn.addActionListener(e -> {
-			choicePressed(1);
-			int[] nextStory = Database.getNextStory();
-			int[] nextAnswerId = Database.getAnswerIdsByStory(nextStory[1]);
-			String[] nextAnswer = Database.getAnswersByStory(nextStory[1]);
-			addToStory(Database.getStoryByAnswer(nextStory[1]-1));
-			setChoices(nextAnswer, nextAnswerId);
+			choicePressed(2);
+			int[] answerIds = Database.getAnswerIdsByStory(currentStoryId);
+			int nextStory = Database.getNextStoryId(answerIds[1]);
+			currentStoryId = nextStory;
+			addToStory(Database.getStoryByAnswer(answerIds[1]));
+			setChoices(Database.getAnswersByStory(currentStoryId), answerIds);
 		});
 		lowerLeftBtn.addActionListener(e -> {
-			choicePressed(2);
-			int[] nextStory = Database.getNextStory();
-			int[] nextAnswerId = Database.getAnswerIdsByStory(nextStory[2]);
-			String[] nextAnswer = Database.getAnswersByStory(nextStory[2]);
-			addToStory(Database.getStoryByAnswer(nextStory[2]-1));
-			setChoices(nextAnswer, nextAnswerId);
+			choicePressed(3);
+			int[] answerIds = Database.getAnswerIdsByStory(currentStoryId);
+			int nextStory = Database.getNextStoryId(answerIds[2]);
+			currentStoryId = nextStory;
+			addToStory(Database.getStoryByAnswer(answerIds[2]));
+			setChoices(Database.getAnswersByStory(currentStoryId), answerIds);
 		});
 		lowerRightBtn.addActionListener(e -> {
-			choicePressed(3);
-			int[] nextStory = Database.getNextStory();
-			int[] nextAnswerId = Database.getAnswerIdsByStory(nextStory[3]);
-			String[] nextAnswer = Database.getAnswersByStory(nextStory[3]);
-			addToStory(Database.getStoryByAnswer(nextStory[3]-1));
-			setChoices(nextAnswer, nextAnswerId);
+			choicePressed(4);
+			int[] answerIds = Database.getAnswerIdsByStory(currentStoryId);
+			int nextStory = Database.getNextStoryId(answerIds[3]);
+			currentStoryId = nextStory;
+			addToStory(Database.getStoryByAnswer(answerIds[3]));
+			setChoices(Database.getAnswersByStory(currentStoryId), answerIds);
 		});
 		choicesPanel.add(upperLeftBtn);
 		choicesPanel.add(upperRightBtn);
@@ -173,7 +174,7 @@ public class Gui extends JFrame {
 
 
 	public void openInventar(){
-		new Inventar("s");
+		new Inventar("");
 	}
 	public static void addToStory(String str)
 	{
@@ -183,19 +184,23 @@ public class Gui extends JFrame {
 
 	public static void setChoices(String[] texts, int[] ids)
 	{
-		setButton(upperLeftBtn,texts[0],ids[0]);
-		setButton(upperRightBtn,texts[1],ids[1]);
-		setButton(lowerLeftBtn,texts[2],ids[2]);
-		setButton(lowerRightBtn,texts[3],ids[3]);
+		setButton(upperLeftBtn,texts[0],ids[0],0);
+		setButton(upperRightBtn,texts[1],ids[1],1);
+		setButton(lowerLeftBtn,texts[2],ids[2],2);
+		setButton(lowerRightBtn,texts[3],ids[3],3);
 	}
-	private static void setButton(JButton btn, String text,int id)
+	private static void setButton(JButton btn, String text,int id, int btnId)
 	{
 		btn.setText(text);
-			for( ActionListener act : btn.getActionListeners() ) {
-				btn.removeActionListener( act );
-			}
+		for( ActionListener act : btn.getActionListeners() ) {
+			btn.removeActionListener( act );
+		}
 		btn.addActionListener(e -> {
 			choicePressed(id);
+			int[] answerIds = Database.getAnswerIdsByStory(currentStoryId);
+			currentStoryId = Database.getNextStoryId(answerIds[id-1]);
+			addToStory(Database.getStoryByAnswer(answerIds[id-1]));
+			setChoices(Database.getAnswersByStory(currentStoryId), answerIds);
 		});
 	}
 
@@ -203,6 +208,7 @@ public class Gui extends JFrame {
 	{
 		System.out.println("Antwort mit der ID:" +id+" wurde gedrückt");
 	}
+
 
 	}
 
