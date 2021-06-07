@@ -4,6 +4,8 @@ import me.mustache.character.Stats;
 
 public abstract class Entity {
 
+
+
     protected Stats stats;
     protected boolean affinity;
     protected String name;
@@ -18,4 +20,7 @@ public abstract class Entity {
 
     }
 
+    public Stats getStats() {
+        return stats;
+    }
 }

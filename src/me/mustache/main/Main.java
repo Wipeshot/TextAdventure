@@ -19,7 +19,7 @@ import static me.mustache.database.Database.insertIntoStory;
 public class Main {
 
     public static Player thePlayer;
-    MetadataInventar inventar;
+   static MetadataInventar inventar;
     public static void main(String[] args) throws SQLException {
 
 
@@ -29,15 +29,15 @@ public class Main {
 
         String[] answer;
 
-        MetadataInventar.getInstance().addConsumable(new HealthPot());
-        MetadataInventar.getInstance().addConsumable(new HealthPot());
-        MetadataInventar.getInstance().addConsumable(new HealthPot());
-        MetadataInventar.getInstance().addConsumable(new HealthPot());
-        MetadataInventar.getInstance().addConsumable(new ManaPot());
-        MetadataInventar.getInstance().addConsumable(new ManaPot());
-        MetadataInventar.getInstance().addConsumable(new ManaPot());
-        MetadataInventar.getInstance().addConsumable(new ManaPot());
-        MetadataInventar.getInstance().addConsumable(new Bread());
+        inventar.getInstance().addConsumable(new HealthPot());
+        inventar.getInstance().addConsumable(new HealthPot());
+        inventar.getInstance().addConsumable(new HealthPot());
+        inventar.getInstance().addConsumable(new HealthPot());
+        inventar.getInstance().addConsumable(new ManaPot());
+        inventar.getInstance().addConsumable(new ManaPot());
+        inventar.getInstance().addConsumable(new ManaPot());
+        inventar.getInstance().addConsumable(new ManaPot());
+        inventar.getInstance().addConsumable(new Bread());
 
 
         Database.createNewDatabase("test.db");

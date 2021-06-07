@@ -1,5 +1,5 @@
 package me.mustache.character;
-
+import me.mustache.balance.*;
 import me.mustache.items.Item;
 
 public class Player {
@@ -8,11 +8,16 @@ public class Player {
     private static String name;
     private boolean alive;
 
+
+
+    private Currency currency;
+
     private Stats stats;
 
     public Player() {
         stats = new Stats(100,100,0,100,100,10,10,10,10,10,10);
         hunger = new Hunger();
+        currency = new Currency(100);
     }
 
     public void setName(String pName) {
@@ -31,6 +36,9 @@ public class Player {
         return alive;
     }
 
+    public Currency getCurrency() {
+        return currency;
+    }
 
     public Hunger getHunger() {
         return hunger;
