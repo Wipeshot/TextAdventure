@@ -160,10 +160,9 @@ public class Database {
     }
 
     public static int getNextStoryId(int answerId){
-        String nextStory = "SELECT storyId\n"
-                + " FROM story s, answer a\n"
-                + " WHERE a.storyId = s.storyId\n"
-                + " AND a.storyId = ?"
+        String nextStory = "SELECT a.storyId\n"
+                + " FROM answer a\n"
+                + " WHERE a.answerId = ?"
                 + " ;";
         try (Connection conn = DriverManager.getConnection(url)){
             PreparedStatement pstmt = conn.prepareStatement(nextStory);
@@ -174,6 +173,7 @@ public class Database {
         catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+        System.out.println("NEXT STORY IS " + nextStoryId);
         return nextStoryId;
     }
 

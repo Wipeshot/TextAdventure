@@ -107,8 +107,10 @@ public class Gui extends JFrame {
 
 		upperLeftBtn.addActionListener(e -> {
 			choicePressed(1);
+
 			int[] answerIds = Database.getAnswerIdsByStory(currentStoryId);
-			int nextStory = Database.getNextStoryId(answerIds[0]);
+
+			int nextStory = Database.getNextStoryId(1);
 			currentStoryId = nextStory;
 			addToStory(Database.getStoryByAnswer(answerIds[0]));
 			setChoices(Database.getAnswersByStory(currentStoryId), answerIds);
@@ -116,25 +118,25 @@ public class Gui extends JFrame {
 		upperRightBtn.addActionListener(e -> {
 			choicePressed(2);
 			int[] answerIds = Database.getAnswerIdsByStory(currentStoryId);
-			int nextStory = Database.getNextStoryId(answerIds[1]);
+			int nextStory = Database.getNextStoryId(2);
 			currentStoryId = nextStory;
-			addToStory(Database.getStoryByAnswer(answerIds[1]));
+			addToStory(Database.getStoryByAnswer(2));
 			setChoices(Database.getAnswersByStory(currentStoryId), answerIds);
 		});
 		lowerLeftBtn.addActionListener(e -> {
 			choicePressed(3);
 			int[] answerIds = Database.getAnswerIdsByStory(currentStoryId);
-			int nextStory = Database.getNextStoryId(answerIds[2]);
+			int nextStory = Database.getNextStoryId(3);
 			currentStoryId = nextStory;
-			addToStory(Database.getStoryByAnswer(answerIds[2]));
+			addToStory(Database.getStoryByAnswer(3));
 			setChoices(Database.getAnswersByStory(currentStoryId), answerIds);
 		});
 		lowerRightBtn.addActionListener(e -> {
 			choicePressed(4);
 			int[] answerIds = Database.getAnswerIdsByStory(currentStoryId);
-			int nextStory = Database.getNextStoryId(answerIds[3]);
+			int nextStory = Database.getNextStoryId(4);
 			currentStoryId = nextStory;
-			addToStory(Database.getStoryByAnswer(answerIds[3]));
+			addToStory(Database.getStoryByAnswer(4));
 			setChoices(Database.getAnswersByStory(currentStoryId), answerIds);
 		});
 		choicesPanel.add(upperLeftBtn);
@@ -198,8 +200,8 @@ public class Gui extends JFrame {
 		btn.addActionListener(e -> {
 			choicePressed(id);
 			int[] answerIds = Database.getAnswerIdsByStory(currentStoryId);
-			currentStoryId = Database.getNextStoryId(answerIds[id-1]);
-			addToStory(Database.getStoryByAnswer(answerIds[id-1]));
+			currentStoryId = Database.getNextStoryId(id);
+			addToStory(Database.getStoryByAnswer(id));
 			setChoices(Database.getAnswersByStory(currentStoryId), answerIds);
 		});
 	}
