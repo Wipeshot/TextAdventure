@@ -1,13 +1,12 @@
 package me.mustache.gui;
 
-import me.mustache.trade.Trader;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class TradeGui extends JFrame {
 
-    public TradeGui(String pTitle){
+    public TradeGui(String title){
 
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
@@ -17,7 +16,7 @@ public class TradeGui extends JFrame {
         int windowX = screenX/4;
         int windowY = screenY/4;
 
-        setTitle(pTitle);
+        setTitle(title);
         setSize(windowX, windowY);
         setResizable(false);
         setVisible(true);

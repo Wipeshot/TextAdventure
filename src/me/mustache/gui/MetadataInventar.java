@@ -2,7 +2,7 @@ package me.mustache.gui;
 
 
 
-import me.mustache.consumables.Consumable;
+import me.mustache.items.Consumable;
 import me.mustache.items.Item;
 
 import java.util.ArrayList;

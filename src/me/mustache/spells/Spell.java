@@ -6,10 +6,10 @@ public abstract class Spell {
     protected String desc;
     protected int manaC;
 
-    public Spell(String pName, String pDesc, int pManaC){
-        name = pName;
-        desc = pDesc;
-        manaC = pManaC;
+    public Spell(String name, String desc, int manaC){
+        this.name = name;
+        this.desc = desc;
+        this.manaC = manaC;
 
     }
 

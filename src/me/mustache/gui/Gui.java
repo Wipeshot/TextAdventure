@@ -2,37 +2,33 @@ package me.mustache.gui;
 
 import me.mustache.character.Player;
 import me.mustache.database.Database;
-import me.mustache.trade.PotTrader;
 
 import java.awt.*;
 import java.awt.event.ActionListener;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
+
 
 import javax.swing.*;
 import javax.swing.border.Border;
-import javax.swing.border.EtchedBorder;
-import javax.swing.text.BadLocationException;
 
 
 @SuppressWarnings("serial")
 public class Gui extends JFrame {
 
 
-	static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+	private static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
-	 static int screenWidth = (int) screenSize.getWidth();
-	 static int screenHeight = (int) screenSize.getHeight();
+	private static int screenWidth = (int) screenSize.getWidth();
+	private static int screenHeight = (int) screenSize.getHeight();
 
-	 static int windowWidth = (int) (screenWidth*0.7);
-	 static int windowHeight = (int) (screenHeight*0.7);
-	 static private int currentStoryId = 1;
-	 static private String[] answer = Database.getFirstAnswers();
-	 static private JTextArea storyArea = new JTextArea();
-	 static private JButton upperLeftBtn = new JButton(answer[0]);
-	static private JButton upperRightBtn = new JButton(answer[1]);
-	static private JButton lowerLeftBtn = new JButton(answer[2]);
-	static private JButton lowerRightBtn = new JButton(answer[3]);
+	private static int windowWidth = (int) (screenWidth*0.7);
+	private static int windowHeight = (int) (screenHeight*0.7);
+	private static int currentStoryId = 1;
+	private static String[] answer = Database.getFirstAnswers();
+	private static JTextArea storyArea = new JTextArea();
+	private static JButton upperLeftBtn = new JButton(answer[0]);
+	private static JButton upperRightBtn = new JButton(answer[1]);
+	private static JButton lowerLeftBtn = new JButton(answer[2]);
+	private static JButton lowerRightBtn = new JButton(answer[3]);
 
 	private static Gui instance = null;
 	public static Gui getInstance() {
@@ -107,38 +103,34 @@ public class Gui extends JFrame {
 
 		upperLeftBtn.addActionListener(e -> {
 			choicePressed(1);
-
 			int[] answerIds = Database.getAnswerIdsByStory(currentStoryId);
-
-			int nextStory = Database.getNextStoryId(1);
-			currentStoryId = nextStory;
+			currentStoryId = Database.getNextStoryId(1);
 			addToStory(Database.getStoryByAnswer(answerIds[0]));
 			setChoices(Database.getAnswersByStory(currentStoryId), answerIds);
 		});
 		upperRightBtn.addActionListener(e -> {
 			choicePressed(2);
 			int[] answerIds = Database.getAnswerIdsByStory(currentStoryId);
-			int nextStory = Database.getNextStoryId(2);
-			currentStoryId = nextStory;
+			currentStoryId = Database.getNextStoryId(2);
 			addToStory(Database.getStoryByAnswer(2));
 			setChoices(Database.getAnswersByStory(currentStoryId), answerIds);
 		});
 		lowerLeftBtn.addActionListener(e -> {
 			choicePressed(3);
 			int[] answerIds = Database.getAnswerIdsByStory(currentStoryId);
-			int nextStory = Database.getNextStoryId(3);
-			currentStoryId = nextStory;
+			currentStoryId = Database.getNextStoryId(3);
 			addToStory(Database.getStoryByAnswer(3));
 			setChoices(Database.getAnswersByStory(currentStoryId), answerIds);
 		});
 		lowerRightBtn.addActionListener(e -> {
 			choicePressed(4);
 			int[] answerIds = Database.getAnswerIdsByStory(currentStoryId);
-			int nextStory = Database.getNextStoryId(4);
-			currentStoryId = nextStory;
+			currentStoryId = Database.getNextStoryId(4);
 			addToStory(Database.getStoryByAnswer(4));
 			setChoices(Database.getAnswersByStory(currentStoryId), answerIds);
 		});
+
+
 		choicesPanel.add(upperLeftBtn);
 		choicesPanel.add(upperRightBtn);
 		choicesPanel.add(lowerLeftBtn);
@@ -167,32 +159,25 @@ public class Gui extends JFrame {
 		add(encounterPanel);
 		add(mapPanel);
 		setLayout(null);
-
-
-
-
 	}
-
-
 
 	public void openInventar(){
 		new Inventar("");
 	}
-	public static void addToStory(String str)
-	{
+
+	public static void addToStory(String str) {
 		storyArea.append("\n\n");
 		storyArea.append(str);
 	}
 
-	public static void setChoices(String[] texts, int[] ids)
-	{
+	public static void setChoices(String[] texts, int[] ids) {
 		setButton(upperLeftBtn,texts[0],ids[0],0);
 		setButton(upperRightBtn,texts[1],ids[1],1);
 		setButton(lowerLeftBtn,texts[2],ids[2],2);
 		setButton(lowerRightBtn,texts[3],ids[3],3);
 	}
-	private static void setButton(JButton btn, String text,int id, int btnId)
-	{
+
+	private static void setButton(JButton btn, String text,int id, int btnId) {
 		btn.setText(text);
 		for( ActionListener act : btn.getActionListeners() ) {
 			btn.removeActionListener( act );
@@ -210,7 +195,6 @@ public class Gui extends JFrame {
 	{
 		System.out.println("Antwort mit der ID:" +id+" wurde gedrückt");
 	}
-
 
 	}
 

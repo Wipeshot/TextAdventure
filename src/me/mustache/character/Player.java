@@ -20,16 +20,16 @@ public class Player {
         currency = new Currency(100);
     }
 
-    public void setName(String pName) {
-        name = pName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public static String getName() {
         return name;
     }
 
-    public void setAlive(boolean pAlive) {
-        alive = pAlive;
+    public void setAlive(boolean alive) {
+        this.alive = alive;
     }
 
     public boolean isAlive() {
@@ -44,8 +44,8 @@ public class Player {
         return hunger;
     }
 
-    public void setHunger(Hunger pHunger) {
-        hunger = pHunger;
+    public void setHunger(Hunger hunger) {
+        this.hunger = hunger;
     }
 
     public Hunger getMaxHunger() {

@@ -26,17 +26,15 @@ public class Hunger {
     }
 
 
-    //Set-Operationen
-    public void setMaxHunger(int pMaxHunger) {
-        maxHunger = pMaxHunger;
+    public void setMaxHunger(int maxHunger) {
+        this.maxHunger = maxHunger;
     }
 
-    public void setHunger(int pHunger) {
-        hunger = pHunger;
+    public void setHunger(int hunger) {
+        this.hunger = hunger;
     }
 
 
-    //Get-Operationen
     public int getMaxHunger() {
         return maxHunger;
     }

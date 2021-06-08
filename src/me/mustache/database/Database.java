@@ -1,5 +1,8 @@
 package me.mustache.database;
 
+import me.mustache.gui.MetadataInventar;
+import me.mustache.items.*;
+
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -39,66 +42,6 @@ public class Database {
     }
 
 
-    public static void createStory(){
-        String tableStory = "CREATE TABLE IF NOT EXISTS story (\n"
-                + " storyId INTEGER PRIMARY KEY AUTOINCREMENT,\n"
-                + " storyText VARCHAR(10) NOT NULL,\n"
-                + " answerIds VARCHAR(10) NOT NULL"
-                + ");";
-
-        String tableAnswer = "CREATE TABLE IF NOT EXISTS answer (\n"
-                + " answerId INTEGER PRIMARY KEY AUTOINCREMENT,\n"
-                + " answerText VARCHAR(10) NOT NULL,\n"
-                + " storyId INTEGER,\n"
-                + " FOREIGN KEY(storyId) REFERENCES story(storyId)"
-                + ");";
-
-        try (Connection conn = DriverManager.getConnection(url)){
-            if(conn != null){
-                stmt = conn.createStatement();
-                stmt.executeUpdate(tableStory);
-                stmt.executeUpdate(tableAnswer);
-                stmt.close();
-                conn.close();
-            }
-        } catch(SQLException e){
-            System.out.println(e);
-        }
-
-    }
-
-    public static void insertIntoStory(String story, String answerIds){
-        String insertStory = "INSERT INTO story(storyText, answerIds)\n"
-                     + " VALUES(?,?)"
-                       + " ;";
-        try (Connection conn = DriverManager.getConnection(url)){
-            if(conn != null){
-                PreparedStatement pstmt = conn.prepareStatement(insertStory);
-                pstmt.setString(1, story);
-                pstmt.setString(2, answerIds);
-                pstmt.executeUpdate();
-                conn.close();
-            }
-        } catch(SQLException e){
-            System.out.println(e);
-        }
-        }
-
-    public static void insertIntoAnswer(String answer){
-        String insertAnswer = "INSERT INTO answer(answerText)"
-                        + " VALUES(?)"
-                        + " ;";
-        try (Connection conn = DriverManager.getConnection(url)){
-            if(conn != null){
-                PreparedStatement pstmt = conn.prepareStatement(insertAnswer);
-                pstmt.setString(1, answer);
-                pstmt.executeUpdate();
-                conn.close();
-            }
-        } catch(SQLException e){
-            System.out.println(e);
-        }
-    }
 
     public static void setStoryForAnswer(int answerId, int storyId){
         String insertStoryIdToAnswer = "UPDATE answer\n"
@@ -241,122 +184,113 @@ public class Database {
         return answerIds;
     }
 
-    public static void createHaendler(){
-        String createHaendler = "CREATE TABLE IF NOT EXISTS haendler (\n"
-                + " haendlerId INTEGER PRIMARY KEY AUTOINCREMENT,\n"
-                + " haendlerName TEXT NOT NULL\n"
-                + ");";
-        try (Connection conn = DriverManager.getConnection(url)){
-            if(conn != null){
-                stmt = conn.createStatement();
-                stmt.executeUpdate(createHaendler);
-                stmt.close();
-                conn.close();
-            }
-        } catch(SQLException e){
-            System.out.println(e);
-        }
-    }
-
-    public static void createNewHaendler(String name){
-        String createNewHaendler = "INSERT INTO haendler(haendlerName)\n"
-                + " VALUES(?)"
+    public static void addItem(int id){
+        String getItemInfo = "SELECT itemId, type, name, desc\n"
+                + " FROM items i\n"
+                + " WHERE itemId = ?"
                 + " ;";
+        int itemId = 0;
+        int type = 0;
+        String desc = null;
+        String name = null;
 
-        try (Connection conn = DriverManager.getConnection(url)){
-            PreparedStatement pstmt = conn.prepareStatement(createNewHaendler);
-            pstmt.setString(1, name);
-        }
-        catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
+        String getItemDamage = "SELECT damage\n"
+                + " FROM i_weapons\n"
+                + " WHERE itemId = ?"
+                + " ;";
+        int dmg = 1;
 
-    public static void createHaendlerInventar(){
-        String createHaendlerInventar = "CREATE TABLE IF NOT EXISTS haendlerInventar"
-                + " haendlerInventarId INTEGER PRIMARY KEY AUTOINCREMENT,\n"
-                + " itemId INTEGER NOT NULL,\n"
-                + " anzahl INTEGER NOT NULL,\n"
-                + " haendlerId INTEGER NOT NULL,\n"
-                + " FOREIGN KEY(itemId) REFERENCES item(itemId),\n"
-                + " FOREIGN KEY(haendlerId) REFERENCES haendler(haendlerId)"
-                + " );";
+        String getStaffMagic = "SELECT magicPower\n"
+                + " FROM i_staff\n"
+                + " WHERE itemId = ?"
+                + " ;";
+        int magic = 1;
 
-        try (Connection conn = DriverManager.getConnection(url)){
-            if(conn != null){
-                stmt = conn.createStatement();
-                stmt.executeUpdate(createHaendlerInventar);
-                stmt.close();
-                conn.close();
-            }
-        } catch(SQLException e){
-            System.out.println(e);
-        }
-    }
+        String getConsumableType = "SELECT consumeableType\n"
+                + " FROM  i_consumeables\n"
+                + " WHERE itemId = ?"
+                + " ;";
+        int consumableType= 0;
 
-   /* public static int[][] getHaendlerInventar(int haendlerId){
-        int[][] inventar;
-        String getInventar = "SELECT itemId, anzahl\n"
-                + " FROM haendlerInventar\n"
-                + " WHERE haendlerId = ?";
-        try (Connection conn = DriverManager.getConnection(url)){
-            PreparedStatement pstmt = conn.prepareStatement(getInventar);
-            pstmt.setInt(1, haendlerId);
+        String getFoodVal = "SELECT hungerVal\n"
+                + " FROM i_c_food\n"
+                + " WHERE itemId = ?"
+                + " ;";
+        int foodVal = 0;
+
+        String getPotValue = "SELECT value, potionType\n"
+                + " FROM i_c_potion\n"
+                + " WHERE itemId = ?"
+                + " ;";
+        int potValue = 0;
+        int potType = 0;
+
+        try (Connection conn = DriverManager.getConnection(url)) {
+            PreparedStatement pstmt = conn.prepareStatement(getItemInfo);
+            pstmt.setInt(1, id);
             ResultSet rs = pstmt.executeQuery();
-            ArrayList<Integer> item = new ArrayList<>();
-            ArrayList<Integer> anz = new ArrayList<>();
-            item = rs.getInt("itemId");
-            anz = rs.getInt("anzahl");
-            int i = item.size();
-            int[][] inv = new int[i][i];
-            for(int z = 0; z <= i; z++){
-                inv[z] = item.toArray();
-                inv[z][z] = anz.toArray();
-            }
-            inventar = inv;
-        }
-        catch (SQLException e) {
+            itemId = rs.getInt("itemId");
+            type = rs.getInt("type");
+            name = rs.getString("name");
+            desc = rs.getString("desc");
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
 
-        return inventar;
-    }*/
-
-    public static void insertIntoHaendlerInventar(int haendlerId, int itemId, int anzahl ){
-        String insertIntoHaendlerInventar = "INSERT INTO haendlerInventar(haendlerId, itemId, anzahl)\n"
-                + " VALUES(?,?,?)"
-                + " ;";
-        try (Connection conn = DriverManager.getConnection(url)){
-            PreparedStatement pstmt = conn.prepareStatement(insertIntoHaendlerInventar);
-            pstmt.setInt(1, haendlerId);
-            pstmt.setInt(2, itemId);
-            pstmt.setInt(3, anzahl);
-            pstmt.executeQuery();
-            pstmt.close();
-        }
-        catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    public static void createItemTable(){
-        String itemTable = "CREATE TABLE IF NOT EXISTS item (\n"
-                + " itemId INTEGER PRIMARY KEY AUTOINCREMENT,\n"
-                + " name TEXT,\n"
-                + " description TEXT ,\n"
-                + " price INTEGER"
-                + ");";
-
-        try (Connection conn = DriverManager.getConnection(url)){
-            if(conn != null){
-                stmt = conn.createStatement();
-                stmt.executeUpdate(itemTable);
-                stmt.close();
-                conn.close();
+        if(type == 0){
+            //MetadataInventar.getInstance().addItem(new Item(name, desc, itemId));
+        }else if(type == 1){
+            try (Connection conn = DriverManager.getConnection(url)) {
+                PreparedStatement pstmt = conn.prepareStatement(getItemDamage);
+                pstmt.setInt(1, id);
+                ResultSet rs = pstmt.executeQuery();
+                dmg = rs.getInt("damage");
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
             }
-        } catch(SQLException e){
-            System.out.println(e);
+            MetadataInventar.getInstance().addItem(new Weapon(name, desc, itemId, dmg));
+        }else if(type == 2){
+            try (Connection conn = DriverManager.getConnection(url)) {
+                PreparedStatement pstmt = conn.prepareStatement(getStaffMagic);
+                pstmt.setInt(1, id);
+                ResultSet rs = pstmt.executeQuery();
+                magic = rs.getInt("magicPower");
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+            MetadataInventar.getInstance().addItem(new Staff(name, desc, itemId, magic));
+        }else if(type == 3){
+            try (Connection conn = DriverManager.getConnection(url)) {
+                PreparedStatement pstmt = conn.prepareStatement(getConsumableType);
+                pstmt.setInt(1, id);
+                ResultSet rs = pstmt.executeQuery();
+                consumableType = rs.getInt("consumableType");
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+            if(consumableType == 1){
+                try (Connection conn = DriverManager.getConnection(url)) {
+                    PreparedStatement pstmt = conn.prepareStatement(getFoodVal);
+                    pstmt.setInt(1, id);
+                    ResultSet rs = pstmt.executeQuery();
+                    foodVal = rs.getInt("hungerVal");
+                } catch (SQLException e) {
+                    System.out.println(e.getMessage());
+                }
+                MetadataInventar.getInstance().addConsumable(new Food(name, desc, itemId, foodVal));
+            }else if(consumableType == 2){
+                try (Connection conn = DriverManager.getConnection(url)) {
+                    PreparedStatement pstmt = conn.prepareStatement(getPotValue);
+                    pstmt.setInt(1, id);
+                    ResultSet rs = pstmt.executeQuery();
+                    potValue = rs.getInt("value");
+                } catch (SQLException e) {
+                    System.out.println(e.getMessage());
+                }
+                MetadataInventar.getInstance().addItem(new Potion(name, desc, itemId, potValue, potType));
+            }
         }
+
     }
 
 

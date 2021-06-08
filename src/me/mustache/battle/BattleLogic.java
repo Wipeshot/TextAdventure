@@ -72,7 +72,7 @@ public class BattleLogic {
                     }
                 }
                 else{
-                    gui.getInstance().addToStory("Held hat Verfehlt!");
+                    gui.getInstance().addToStory("Held hat verfehlt!");
                     calculatedDamageHero = 0;
                     gui.getInstance().addToStory("Schaden an dem Gegner:" + String.valueOf(calculatedDamageHero));
 

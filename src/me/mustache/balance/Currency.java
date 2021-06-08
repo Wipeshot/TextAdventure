@@ -1,6 +1,5 @@
 package me.mustache.balance;
 
-import me.mustache.trade.Trader;
 
 public class Currency {
 
@@ -12,18 +11,18 @@ public class Currency {
 
     }
 
-    public void increaseGold(int pGold){
-        gold = gold+pGold;
+    public void increaseGold(int gold){
+        this.gold = this.gold+gold;
 
     }
 
-    public void decreaseGold(int pGold){
-        gold = gold-pGold;
+    public void decreaseGold(int gold){
+        this.gold = this.gold-gold;
     }
 
-    public void checkMoney(int pGold, int pSilver){
-        if(pGold < gold) Trader.buyable = true;
-    }
+    /*public void checkMoney(int gold){
+        if(gold < this.gold) Trader.buyable = true;
+    }*/
 
 
 
@@ -32,8 +31,8 @@ public class Currency {
     }
 
 
-    public void setGold(int pGold){
-        gold = pGold;
+    public void setGold(int gold){
+        this.gold = gold;
     }
 
 }
