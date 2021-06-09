@@ -4,7 +4,6 @@ import me.mustache.gui.MetadataInventar;
 import me.mustache.items.*;
 
 import java.sql.*;
-import java.util.ArrayList;
 
 
 public class Database {
@@ -17,7 +16,6 @@ public class Database {
     private static String firstStory;
     private static String storyByAnswer;
     private static int nextStoryId;
-    private static int[] currentAnswerId = new int[4];
     static Statement stmt;
 
     public Database(){
