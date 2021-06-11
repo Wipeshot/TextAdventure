@@ -7,8 +7,7 @@ import me.mustache.gui.*;
 import me.mustache.gui.MetadataInventar;
 
 import java.sql.SQLException;
-
-
+import java.util.ArrayList;
 
 
 public class Main {
@@ -53,6 +52,12 @@ public class Main {
         Database.addItem(3);
         Database.addItem(3);
         Database.addItem(3);
+
+        ArrayList<Integer> kekW = new ArrayList<>();
+        kekW = Database.getTraderInventory(1);
+
+        System.out.println(kekW.get(0));
+        System.out.println(kekW.get(1));
 
 
 

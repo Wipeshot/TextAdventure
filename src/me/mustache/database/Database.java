@@ -4,6 +4,7 @@ import me.mustache.gui.MetadataInventar;
 import me.mustache.items.*;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 
 public class Database {
@@ -307,6 +308,43 @@ public class Database {
             }
         }
 
+    }
+
+    public static String getTraderName(int id) {
+        String createTrader = "SELECT traderName"
+                + " FROM trader"
+                + " WHERE traderId = ?"
+                + " ;";
+
+        String traderName = null;
+
+        try (Connection conn = DriverManager.getConnection(url)) {
+            PreparedStatement pstmt = conn.prepareStatement(createTrader);
+            pstmt.setInt(1, id);
+            ResultSet rs = pstmt.executeQuery();
+            traderName = rs.getString("traderName");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return traderName;
+    }
+
+    public static ArrayList<Integer> getTraderInventory(int id){
+
+        String getTradeInventory = "SELECT itemIdToSell"
+                + " FROM t_inventory"
+                + " WHERE traderId = ?"
+                + " ;";
+        ArrayList<Integer> traderInventory = new ArrayList<>();
+        try (Connection conn = DriverManager.getConnection(url)) {
+            PreparedStatement pstmt = conn.prepareStatement(getTradeInventory);
+            pstmt.setInt(1, id);
+            ResultSet rs = pstmt.executeQuery();
+            traderInventory = (ArrayList<Integer>) rs.getArray("itemIdToSell");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return traderInventory;
     }
 
 

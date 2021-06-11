@@ -62,7 +62,7 @@ public class Gui extends JFrame {
 		envPanel.setBounds(characterPanel.getWidth()+storyPanel.getWidth(),encounterPanel.getHeight(),200,encounterPanel.getHeight()*2);
 		JPanel mapPanel = new JPanel();
 		mapPanel.setBounds(characterPanel.getWidth()+storyPanel.getWidth(),envPanel.getY()+envPanel.getHeight(),200,windowHeight-envPanel.getHeight()-encounterPanel.getHeight()-40);
-		storyArea.setForeground(Color.GREEN);
+		storyArea.setForeground(Color.GREEN); //196 108 93
 		storyArea.setBackground(Color.BLACK);
 		storyArea.setText(Database.getFirstStory());
 		storyArea.setLineWrap(true);
