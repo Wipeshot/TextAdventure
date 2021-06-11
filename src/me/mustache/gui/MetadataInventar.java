@@ -32,7 +32,9 @@ public class MetadataInventar {
     }
     public static void addItem(Item item)
     {
-        if(canAdd()) items.add(item);
+        if(canAdd()){
+            items.add(item);
+    }
     }
 
     private boolean hasConsumable(String name)

@@ -8,10 +8,10 @@ import java.sql.*;
 
 public class Database {
 
-    private static String[] answers = new String[4];
-    private static int[] answerIds = new int[4];
+    private static final String[] answers = new String[4];
+    private static final int[] answerIds = new int[4];
     private static String answerIdsString;
-    private static int[] storyId = new int[4];
+    private static final int[] storyId = new int[4];
     private static String url;
     private static String firstStory;
     private static String storyByAnswer;
@@ -182,6 +182,24 @@ public class Database {
         return answerIds;
     }
 
+    public static int getEnum(int answerId){
+        int answer = 0;
+        String getEnum = "SELECT enumLevel\n"
+                + " FROM answer\n"
+                + " WHERE answerId = ?"
+                + " ;";
+        try (Connection conn = DriverManager.getConnection(url)) {
+            PreparedStatement pstmt = conn.prepareStatement(getEnum);
+            pstmt.setInt(1, answerId);
+            ResultSet rs = pstmt.executeQuery();
+            answer = rs.getInt("enumLevel");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        
+        return answer;
+    }
+
     public static void addItem(int id){
         String getItemInfo = "SELECT itemId, type, name, desc\n"
                 + " FROM items i\n"
@@ -204,8 +222,8 @@ public class Database {
                 + " ;";
         int magic = 1;
 
-        String getConsumableType = "SELECT consumeableType\n"
-                + " FROM  i_consumeables\n"
+        String getConsumableType = "SELECT consumableType\n"
+                + " FROM  i_consumables\n"
                 + " WHERE itemId = ?"
                 + " ;";
         int consumableType= 0;
@@ -285,7 +303,7 @@ public class Database {
                 } catch (SQLException e) {
                     System.out.println(e.getMessage());
                 }
-                MetadataInventar.getInstance().addItem(new Potion(name, desc, itemId, potValue, potType));
+                MetadataInventar.getInstance().addConsumable(new Potion(name, desc, itemId, potValue, potType));
             }
         }
 

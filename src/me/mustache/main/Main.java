@@ -21,11 +21,40 @@ public class Main {
         thePlayer = new Player();
         new StartGui();
 
+        Database.createNewDatabase("test.db");
 
+        Database.addItem(5);
+        Database.addItem(1);
+        Database.addItem(6);
+        Database.addItem(7);
+        Database.addItem(4);
+        Database.addItem(8);
+        Database.addItem(3);
+        Database.addItem(3);
+        Database.addItem(3);
+        Database.addItem(3);
+        Database.addItem(3);
+        Database.addItem(3);
+        Database.addItem(3);
+        Database.addItem(3);
+        Database.addItem(3);
+        Database.addItem(3);
+        Database.addItem(3);
+        Database.addItem(3);
+        Database.addItem(3);
+        Database.addItem(3);
+        Database.addItem(3);
+        Database.addItem(3);
+        Database.addItem(3);
+        Database.addItem(3);
+        Database.addItem(3);
+        Database.addItem(3);
+        Database.addItem(3);
+        Database.addItem(3);
+        Database.addItem(3);
         Database.addItem(3);
 
 
-        Database.createNewDatabase("test.db");
 
 
 
