@@ -5,7 +5,7 @@ import me.mustache.items.Item;
 public class Player {
 
     private Hunger hunger;
-    private static String name;
+    private String name;
     private boolean alive;
 
 
@@ -24,7 +24,7 @@ public class Player {
         this.name = name;
     }
 
-    public static String getName() {
+    public String getName() {
         return name;
     }
 

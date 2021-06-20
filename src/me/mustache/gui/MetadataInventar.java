@@ -2,17 +2,19 @@ package me.mustache.gui;
 
 
 
+import me.mustache.database.Database;
 import me.mustache.items.Consumable;
 import me.mustache.items.Item;
 
 import java.util.ArrayList;
 
 public class MetadataInventar {
-    private static ArrayList<Consumable> consumables = new ArrayList<>();
+    private ArrayList<Consumable> consumables = new ArrayList<>();
 
-    private static ArrayList<Item> items = new ArrayList<>();
-    private static int currentCapacity = consumables.size() + items.size();
-    private static int maxCapacity = 50;
+    private ArrayList<Item> shopItems = new ArrayList<>();
+    private ArrayList<Item> items = new ArrayList<>();
+    private int currentCapacity = consumables.size() + items.size() ;
+    private int maxCapacity = 50;
     private static MetadataInventar instance = null;
     public static MetadataInventar getInstance() {
         if (instance == null) {
@@ -20,17 +22,18 @@ public class MetadataInventar {
         }
         return instance;
     }
-    private static boolean canAdd()
+    private boolean canAdd()
     {
         boolean retVal = false;
         if(currentCapacity < maxCapacity) retVal = true;
+        currentCapacity = consumables.size() + items.size();
         return retVal;
     }
-    public static void addConsumable(Consumable consumable)
+    public void addConsumable(Consumable consumable)
     {
         if(canAdd()) consumables.add(consumable);
     }
-    public static void addItem(Item item)
+    public void addItem(Item item)
     {
         if(canAdd()){
             items.add(item);
@@ -122,5 +125,17 @@ public class MetadataInventar {
         }
         return allItems;
     }
+
+    public void addShopItems(int traderId){
+        ArrayList<Integer> shopItemIds = Database.getTraderInventory(traderId);
+        for(int i = 0; shopItemIds.size() > i; i++){
+            shopItems.add(Database.getConsumable(shopItemIds.get(i)));
+            System.out.println(shopItems.get(i).getName());
+            System.out.println(shopItemIds.size());
+        }
+
+    }
+
+
 
 }

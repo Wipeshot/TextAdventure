@@ -15,20 +15,20 @@ import javax.swing.border.Border;
 public class Gui extends JFrame {
 
 
-	private static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+	private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
-	private static int screenWidth = (int) screenSize.getWidth();
-	private static int screenHeight = (int) screenSize.getHeight();
+	private int screenWidth = (int) screenSize.getWidth();
+	private int screenHeight = (int) screenSize.getHeight();
 
-	private static int windowWidth = (int) (screenWidth*0.7);
-	private static int windowHeight = (int) (screenHeight*0.7);
-	private static int currentStoryId = 1;
-	private static String[] answer = Database.getFirstAnswers();
-	private static JTextArea storyArea = new JTextArea();
-	private static JButton upperLeftBtn = new JButton(answer[0]);
-	private static JButton upperRightBtn = new JButton(answer[1]);
-	private static JButton lowerLeftBtn = new JButton(answer[2]);
-	private static JButton lowerRightBtn = new JButton(answer[3]);
+	private int windowWidth = (int) (screenWidth*0.7);
+	private int windowHeight = (int) (screenHeight*0.7);
+	private int currentStoryId = 1;
+	private String[] answer = Database.getFirstAnswers();
+	private JTextArea storyArea = new JTextArea();
+	private JButton upperLeftBtn = new JButton(answer[0]);
+	private JButton upperRightBtn = new JButton(answer[1]);
+	private JButton lowerLeftBtn = new JButton(answer[2]);
+	private JButton lowerRightBtn = new JButton(answer[3]);
 
 	private static Gui instance = null;
 	public static Gui getInstance() {
@@ -165,19 +165,19 @@ public class Gui extends JFrame {
 		new Inventar("");
 	}
 
-	public static void addToStory(String str) {
+	public void addToStory(String str) {
 		storyArea.append("\n\n");
 		storyArea.append(str);
 	}
 
-	public static void setChoices(String[] texts, int[] ids) {
+	public void setChoices(String[] texts, int[] ids) {
 		setButton(upperLeftBtn,texts[0],ids[0],0);
 		setButton(upperRightBtn,texts[1],ids[1],1);
 		setButton(lowerLeftBtn,texts[2],ids[2],2);
 		setButton(lowerRightBtn,texts[3],ids[3],3);
 	}
 
-	private static void setButton(JButton btn, String text,int id, int btnId) {
+	private void setButton(JButton btn, String text,int id, int btnId) {
 		btn.setText(text);
 		for( ActionListener act : btn.getActionListeners() ) {
 			btn.removeActionListener( act );
@@ -191,7 +191,7 @@ public class Gui extends JFrame {
 		});
 	}
 
-	private static void choicePressed(int id)
+	private void choicePressed(int id)
 	{
 		System.out.println("Antwort mit der ID:" +id+" wurde gedrückt");
 	}

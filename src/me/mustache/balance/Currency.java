@@ -20,9 +20,15 @@ public class Currency {
         this.gold = this.gold-gold;
     }
 
-    /*public void checkMoney(int gold){
-        if(gold < this.gold) Trader.buyable = true;
-    }*/
+    public boolean checkMoney(int gold){
+        boolean goodToGo;
+        if(gold < this.gold){
+            goodToGo = true;
+        } else {
+            goodToGo = false;
+        }
+        return goodToGo;
+    }
 
 
 

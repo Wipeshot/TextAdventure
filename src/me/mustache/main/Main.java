@@ -22,44 +22,6 @@ public class Main {
 
         Database.createNewDatabase("test.db");
 
-        Database.addItem(5);
-        Database.addItem(1);
-        Database.addItem(6);
-        Database.addItem(7);
-        Database.addItem(4);
-        Database.addItem(8);
-        Database.addItem(3);
-        Database.addItem(3);
-        Database.addItem(3);
-        Database.addItem(3);
-        Database.addItem(3);
-        Database.addItem(3);
-        Database.addItem(3);
-        Database.addItem(3);
-        Database.addItem(3);
-        Database.addItem(3);
-        Database.addItem(3);
-        Database.addItem(3);
-        Database.addItem(3);
-        Database.addItem(3);
-        Database.addItem(3);
-        Database.addItem(3);
-        Database.addItem(3);
-        Database.addItem(3);
-        Database.addItem(3);
-        Database.addItem(3);
-        Database.addItem(3);
-        Database.addItem(3);
-        Database.addItem(3);
-        Database.addItem(3);
-
-        ArrayList<Integer> kekW = new ArrayList<>();
-        kekW = Database.getTraderInventory(1);
-
-        System.out.println(kekW.get(0));
-        System.out.println(kekW.get(1));
-
-
 
 
 
