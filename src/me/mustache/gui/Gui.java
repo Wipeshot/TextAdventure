@@ -5,8 +5,12 @@ import me.mustache.database.Database;
 
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.Border;
 
@@ -29,6 +33,14 @@ public class Gui extends JFrame {
 	private JButton upperRightBtn = new JButton(answer[1]);
 	private JButton lowerLeftBtn = new JButton(answer[2]);
 	private JButton lowerRightBtn = new JButton(answer[3]);
+	private BufferedImage map;
+	{
+		try {
+			map = ImageIO.read(new File("graphic//map.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
 	private static Gui instance = null;
 	public static Gui getInstance() {
@@ -61,7 +73,9 @@ public class Gui extends JFrame {
 		JPanel envPanel = new JPanel();
 		envPanel.setBounds(characterPanel.getWidth()+storyPanel.getWidth(),encounterPanel.getHeight(),200,encounterPanel.getHeight()*2);
 		JPanel mapPanel = new JPanel();
+		JLabel mapLabel = new JLabel(new ImageIcon(map));
 		mapPanel.setBounds(characterPanel.getWidth()+storyPanel.getWidth(),envPanel.getY()+envPanel.getHeight(),200,windowHeight-envPanel.getHeight()-encounterPanel.getHeight()-40);
+		mapPanel.add(mapLabel);
 		storyArea.setForeground(Color.GREEN); //196 108 93
 		storyArea.setBackground(Color.BLACK);
 		storyArea.setText(Database.getFirstStory());

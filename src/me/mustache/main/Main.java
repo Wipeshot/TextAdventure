@@ -14,7 +14,7 @@ public class Main {
 
     public static Player thePlayer;
     public static MetadataInventar inventar;
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args){
 
 
         thePlayer = new Player();
