@@ -175,5 +175,5 @@ public class MetadataInventar {
         }
         return allItems;
     }
-    
+
 }
