@@ -1,5 +1,6 @@
 package me.mustache.database;
 
+import me.mustache.entity.Entity;
 import me.mustache.gui.MetadataInventar;
 import me.mustache.items.*;
 
@@ -308,6 +309,53 @@ public class Database {
             }
         }
 
+    }
+
+    public static int getTriggerIdByAnswerId(int answerId){
+        int id = 0;
+        String getTriggerId = "SELECT enumLevel\n"
+                + " FROM answer\n"
+                + " WHERE answerId = ?\n"
+                + " ;";
+        try (Connection conn = DriverManager.getConnection(url)) {
+            PreparedStatement pstmt = conn.prepareStatement(getTriggerId);
+            pstmt.setInt(1, answerId);
+            ResultSet rs = pstmt.executeQuery();
+            id = rs.getInt("enumLevel");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return id;
+    }
+
+    public static Entity createEntity(int id){
+        String name = null;
+        String desc = null;
+        int maxHp = 0;
+        int currentHp = 0;
+        int armor = 0;
+        int strength = 0;
+        boolean affinity = false;
+
+        String createEntitiy = "SELECT name, desc, maxHp, armorVal, strength, affinity\n"
+                + " FROM entity\n"
+                + " WHERE entityId = ?"
+                + " ;";
+        try (Connection conn = DriverManager.getConnection(url)) {
+            PreparedStatement pstmt = conn.prepareStatement(createEntitiy);
+            pstmt.setInt(1, id);
+            ResultSet rs = pstmt.executeQuery();
+            name = rs.getString("name");
+            desc = rs.getString("desc");
+            maxHp = rs.getInt("maxHp");
+            currentHp = rs.getInt("maxHp");
+            armor = rs.getInt("armorVal");
+            strength = rs.getInt("strength");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        
+        return new Entity(name, desc, maxHp, currentHp, armor, strength, affinity);
     }
 
 

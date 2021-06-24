@@ -1,6 +1,5 @@
-package me.mustache.battle;
+package me.mustache.logic;
 import me.mustache.character.*;
-import me.mustache.balance.*;
 import me.mustache.entity.*;
 import java.util.Random;
 import me.mustache.gui.Gui;

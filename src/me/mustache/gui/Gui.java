@@ -2,6 +2,7 @@ package me.mustache.gui;
 
 import me.mustache.character.Player;
 import me.mustache.database.Database;
+import me.mustache.entity.Entity;
 import me.mustache.main.Main;
 
 import java.awt.*;
@@ -33,14 +34,14 @@ public class Gui extends JFrame {
 	private JButton upperRightBtn = new JButton(answer[1]);
 	private JButton lowerLeftBtn = new JButton(answer[2]);
 	private JButton lowerRightBtn = new JButton(answer[3]);
-	private BufferedImage map;
-	{
-		try {
-			map = ImageIO.read(new File("graphic//map.png"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+	private JButton inv;
+	private JPanel characterPanel;
+	private JPanel inventoryPanel;
+	private JPanel storyPanel;
+	private JPanel choicesPanel;
+	private JPanel encounterPanel;
+	private JPanel envPanel;
+	private JPanel mapPanel;
 
 	private static Gui instance = null;
 	public static Gui getInstance() {
@@ -57,23 +58,23 @@ public class Gui extends JFrame {
 
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-		JPanel characterPanel = new JPanel();
+		characterPanel = new JPanel();
 		characterPanel.setBounds(0,0,200,200);
-		JPanel inventoryPanel = new JPanel();
+		inventoryPanel = new JPanel();
 		inventoryPanel.setBounds(0,characterPanel.getHeight(),200,characterPanel.getHeight()*2);
-		JButton inventar = new JButton("Inventar");
-		inventar.setBounds(0,inventoryPanel.getY()+inventoryPanel.getHeight(),200,115);
-		JPanel storyPanel = new JPanel();
+		inv = new JButton("Inventar");
+		inv.setBounds(0,inventoryPanel.getY()+inventoryPanel.getHeight(),200,115);
+		storyPanel = new JPanel();
 		storyPanel.setBounds(characterPanel.getWidth(),0,927,(int)(this.getContentPane().getHeight()*0.6));
-		JPanel choicesPanel = new JPanel();
+		choicesPanel = new JPanel();
 		choicesPanel.setBounds(characterPanel.getWidth(),storyPanel.getHeight(),927,(int)(this.getContentPane().getHeight()*0.4));
 		choicesPanel.setLayout(new GridLayout(2, 2));
-		JPanel encounterPanel = new JPanel();
+		encounterPanel = new JPanel();
 		encounterPanel.setBounds(characterPanel.getWidth()+storyPanel.getWidth(),0,200,200);
-		JPanel envPanel = new JPanel();
+		envPanel = new JPanel();
 		envPanel.setBounds(characterPanel.getWidth()+storyPanel.getWidth(),encounterPanel.getHeight(),200,encounterPanel.getHeight()*2);
-		JPanel mapPanel = new JPanel();
-		JLabel mapLabel = new JLabel(new ImageIcon(map));
+		mapPanel = new JPanel();
+		JLabel mapLabel = new JLabel();
 		mapPanel.setBounds(characterPanel.getWidth()+storyPanel.getWidth(),envPanel.getY()+envPanel.getHeight(),200,windowHeight-envPanel.getHeight()-encounterPanel.getHeight()-40);
 		mapPanel.add(mapLabel);
 		storyArea.setForeground(Color.GREEN); //196 108 93
@@ -98,9 +99,9 @@ public class Gui extends JFrame {
 		characterPanel.setBackground(Color.BLACK);
 		inventoryPanel.setBorder(mainBorder);
 		inventoryPanel.setBackground(Color.BLACK);
-		inventar.setBorder(mainBorder);
-		inventar.setBackground(Color.BLACK);
-		inventar.setForeground(Color.GREEN);
+		inv.setBorder(mainBorder);
+		inv.setBackground(Color.BLACK);
+		inv.setForeground(Color.GREEN);
 		upperLeftBtn.setBorder(mainBorder);
 		upperLeftBtn.setBackground(Color.BLACK);
 		upperLeftBtn.setForeground(Color.GREEN);
@@ -160,13 +161,13 @@ public class Gui extends JFrame {
 		mapPanel.setBorder(mainBorder);
 		mapPanel.setBackground(Color.BLACK);
 
-		inventar.addActionListener(e -> {
+		inv.addActionListener(e -> {
 			openInventar();
 		});
 
 		add(characterPanel);
 		add(inventoryPanel);
-		add(inventar);
+		add(inv);
 		add(storyPanel);
 		add(choicesPanel);
 		add(envPanel);
@@ -232,6 +233,37 @@ public class Gui extends JFrame {
 	private void choicePressed(int id)
 	{
 		System.out.println("Antwort mit der ID:" +id+" wurde gedrückt");
+	}
+
+
+	public void setupFightscreen(Entity enemy){
+	}
+
+	public void setupDeathscreen(){
+		characterPanel.setVisible(false);
+		inventoryPanel.setVisible(false);
+		storyPanel.setVisible(false);
+		choicesPanel.setVisible(false);
+		envPanel.setVisible(false);
+		mapPanel.setVisible(false);
+	}
+
+	public void setupWinscreen(String winmsg){
+		characterPanel.setVisible(false);
+		inventoryPanel.setVisible(false);
+		storyPanel.setVisible(false);
+		choicesPanel.setVisible(false);
+		envPanel.setVisible(false);
+		mapPanel.setVisible(false);
+		inv.setVisible(false);
+
+		JPanel winPanel = new JPanel();
+		JLabel winLabel = new JLabel(winmsg);
+		winPanel.add(winLabel);
+		this.add(winPanel);
+		winPanel.setVisible(true);
+		winLabel.setVisible(true);
+
 	}
 
 	}
