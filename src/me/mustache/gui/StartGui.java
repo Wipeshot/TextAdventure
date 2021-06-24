@@ -1,6 +1,7 @@
 package me.mustache.gui;
 
 import me.mustache.character.Player;
+import me.mustache.main.Main;
 
 import javax.swing.*;
 import java.awt.*;
@@ -40,10 +41,12 @@ public class StartGui extends JFrame{
         add(buttonName);
         buttonName.setVisible(true);
         buttonName.addActionListener(e -> {
-            Player p = new Player();
-            p.setName(fieldName.getText());
-            this.dispose();
-            Gui.getInstance();
+            if(!fieldName.getText().isEmpty()) {
+                Player p = thePlayer;
+                p.setName(fieldName.getText());
+                this.dispose();
+                Gui.getInstance();
+            }
         });
 
 
