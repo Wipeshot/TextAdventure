@@ -175,17 +175,5 @@ public class MetadataInventar {
         }
         return allItems;
     }
-
-    public void addShopItems(int traderId){
-        ArrayList<Integer> shopItemIds = Database.getTraderInventory(traderId);
-        for(int i = 0; shopItemIds.size() > i; i++){
-            shopItems.add(Database.getConsumable(shopItemIds.get(i)));
-            System.out.println(shopItems.get(i).getName());
-            System.out.println(shopItemIds.size());
-        }
-
-    }
-
-
-
+    
 }

@@ -126,7 +126,7 @@ public class BattleLogic {
 
     /**
      * @param dex
-     * @return
+     * @return hit
      */
         private boolean gotHit(int dex) //Methode um zu bestimmen ob überhaupt getroffen wurde
         {
