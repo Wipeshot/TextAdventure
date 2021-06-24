@@ -20,7 +20,7 @@ public class Main {
         thePlayer = new Player();
         new StartGui();
 
-        Database.createNewDatabase("test.db");
+        Database.createNewDatabase("test.db"); //Überpürft ob die Datenbank vorhanden ist und wenn nicht wird eine neue erstellt
 
 
 

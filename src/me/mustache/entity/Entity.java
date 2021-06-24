@@ -11,6 +11,15 @@ public class Entity {
     private String name;
     private String desc;
 
+    /**
+     * @param name
+     * @param desc
+     * @param maxHP
+     * @param currentHP
+     * @param armor
+     * @param strenght
+     * @param affinity
+     */
     public Entity(String name, String desc, int maxHP, int currentHP, int armor, int strenght, boolean affinity){
         stats = new Stats(maxHP, 0, armor, currentHP, 0, strenght, 0, 0, 0, 0, 0);
 
@@ -20,6 +29,9 @@ public class Entity {
 
     }
 
+    /**
+     * @return stats
+     */
     public Stats getStats() {
         return stats;
     }

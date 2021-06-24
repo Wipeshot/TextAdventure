@@ -22,6 +22,10 @@ public class MetadataInventar {
         }
         return instance;
     }
+
+    /**
+     * @return can add more Items?
+     */
     private boolean canAdd()
     {
         boolean retVal = false;
@@ -29,10 +33,18 @@ public class MetadataInventar {
         currentCapacity = consumables.size() + items.size();
         return retVal;
     }
+
+    /**
+     * @param consumable
+     */
     public void addConsumable(Consumable consumable)
     {
         if(canAdd()) consumables.add(consumable);
     }
+
+    /**
+     * @param item
+     */
     public void addItem(Item item)
     {
         if(canAdd()){
@@ -40,10 +52,18 @@ public class MetadataInventar {
     }
     }
 
+    /**
+     * @param name
+     * @return consumables
+     */
     private boolean hasConsumable(String name)
     {
         return getAllCurrentConsumablesAsStringList().contains(name);
     }
+
+    /**
+     * @param name
+     */
     public void useConsumable(String name)
     {
         System.out.println(hasConsumable(name));
@@ -54,6 +74,10 @@ public class MetadataInventar {
             System.out.println(getAmountOfConsumable(name));
         }
     }
+
+    /**
+     * @param name
+     */
     public void equipItem(String name)
     {
         System.out.println(hasConsumable(name));
@@ -64,6 +88,11 @@ public class MetadataInventar {
             System.out.println(getAmountOfConsumable(name));
         }
     }
+
+    /**
+     * @param name
+     * @return consumable Index
+     */
     public int findConsumableIndex(String name)
     {
         for (Consumable p: consumables) {
@@ -73,6 +102,10 @@ public class MetadataInventar {
         return 0;
     }
 
+    /**
+     * @param name
+     * @return item Index
+     */
     public int findItemIndex(String name)
     {
         for (Item i: items) {
@@ -82,6 +115,10 @@ public class MetadataInventar {
         return 0;
     }
 
+    /**
+     * @param name
+     * @return amount of consumables
+     */
     public int getAmountOfConsumable(String name)
     {
         int count =0;
@@ -91,6 +128,11 @@ public class MetadataInventar {
         }
         return count;
     }
+
+    /**
+     * @param name
+     * @return amount of Items
+     */
     public int getAmountOfItem(String name)
     {
         int count =0;
@@ -100,6 +142,10 @@ public class MetadataInventar {
         }
         return count;
     }
+
+    /**
+     * @return consumables
+     */
     public ArrayList<String> getAllCurrentConsumablesAsStringList()
     {
         ArrayList<String> allItems = new ArrayList<>();
@@ -113,6 +159,10 @@ public class MetadataInventar {
         return allItems;
 
     }
+
+    /**
+     * @return items
+     */
     public ArrayList<String> getAllCurrentItemsAsStringList()
     {
         ArrayList<String> allItems = new ArrayList<>();

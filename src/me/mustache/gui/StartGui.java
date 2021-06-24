@@ -20,9 +20,7 @@ public class StartGui extends JFrame{
         JLabel lblName = new JLabel("Gebe hier einen gewünschten Namen ein:");
         JTextField fieldName = new JTextField();
         JButton buttonName = new JButton("Eingabe");
-
-
-        //Erstellt das Fenster
+        
         this.setSize(windowX, windowY);
         this.setResizable(false);
         this.setVisible(true);
@@ -30,17 +28,14 @@ public class StartGui extends JFrame{
         this.setLayout(null);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        //Created das Textlabel
         lblName.setBounds(10, 5, 400, 50);
         add(lblName);
         lblName.setVisible(true);
 
-        //Created das Textfeld
         fieldName.setBounds(10, 40, 300, 20);
         add(fieldName);
         fieldName.setVisible(true);
 
-        //Created den Button
         buttonName.setBounds(315,40,100,20);
         add(buttonName);
         buttonName.setVisible(true);

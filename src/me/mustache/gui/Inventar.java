@@ -14,6 +14,9 @@ public class Inventar extends JFrame {
     private int windowX = screenX/4;
     private int windowY = screenY/4;
 
+    /**
+     * @param pName
+     */
     public Inventar(String pName){
 
         setTitle(pName + "'s Inventar");
@@ -27,7 +30,7 @@ public class Inventar extends JFrame {
 
     }
 
-    private void setupInventory()
+    private void setupInventory() //erstellt die rows für die einzelnen Items
     {
         int posYLabel=0;
         int posYNum=0;

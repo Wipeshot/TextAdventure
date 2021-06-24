@@ -16,6 +16,9 @@ public class BattleLogic {
         }
 
 
+    /**
+     * @param enemy
+     */
         public void fightHero(Entity enemy)//Gegner greift an
         {
 
@@ -49,6 +52,9 @@ public class BattleLogic {
             }
         }
 
+    /**
+     * @param enemy
+     */
         public void fightEnemy(Entity enemy) //Held greift an
         {
 
@@ -87,6 +93,11 @@ public class BattleLogic {
             }
         }
 
+    /**
+     * @param dex
+     * @param perception
+     * @return
+     */
         private boolean criticalHit(int dex,int perception) //Methode um zu bestimmen ob Kritisch getroffen wurde
         {
             if(dex <=0)
@@ -113,6 +124,10 @@ public class BattleLogic {
 
         }
 
+    /**
+     * @param dex
+     * @return
+     */
         private boolean gotHit(int dex) //Methode um zu bestimmen ob überhaupt getroffen wurde
         {
             if(dex <=0)
@@ -138,6 +153,11 @@ public class BattleLogic {
         }
 
 
+    /**
+     * @param min
+     * @param max
+     * @return
+     */
         public static int randomNumGenerator(int min, int max) // Zufallszahlengenerator mit min-max range
         {
             Random rnd = new Random();

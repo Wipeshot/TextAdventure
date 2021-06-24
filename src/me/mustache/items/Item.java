@@ -6,6 +6,11 @@ public abstract class Item {
 	protected String desc;
 	protected int id;
 
+	/**
+	 * @param name 
+	 * @param desc
+	 * @param id
+	 */
 	public Item(String name, String desc, int id) {
 
 		this.name = name;
@@ -15,14 +20,23 @@ public abstract class Item {
 
 	}
 
+	/**
+	 * @return name
+	 */
 	public String getName(){
 		return name;
 	}
 
+	/**
+	 * @return description
+	 */
 	public String getDesc(){
 		return desc;
 	}
 
+	/**
+	 * @return id
+	 */
 	public int getId(){
 		return id;
 	}

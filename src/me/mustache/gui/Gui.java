@@ -2,6 +2,7 @@ package me.mustache.gui;
 
 import me.mustache.character.Player;
 import me.mustache.database.Database;
+import me.mustache.main.Main;
 
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -15,7 +16,6 @@ import javax.swing.*;
 import javax.swing.border.Border;
 
 
-@SuppressWarnings("serial")
 public class Gui extends JFrame {
 
 
@@ -175,14 +175,25 @@ public class Gui extends JFrame {
 		setLayout(null);
 	}
 
-	public void openInventar(){
-		new Inventar("");
+	public void openInventar(){ //Erstellt das Inventar
+		new Inventar(Main.thePlayer.getName());
 	}
+
+	/**
+	 *
+	 * @param str
+	 */
 
 	public void addToStory(String str) {
 		storyArea.append("\n\n");
 		storyArea.append(str);
 	}
+
+	/**
+	 *
+	 * @param texts
+	 * @param ids
+	 */
 
 	public void setChoices(String[] texts, int[] ids) {
 		setButton(upperLeftBtn,texts[0],ids[0],0);
@@ -190,6 +201,14 @@ public class Gui extends JFrame {
 		setButton(lowerLeftBtn,texts[2],ids[2],2);
 		setButton(lowerRightBtn,texts[3],ids[3],3);
 	}
+
+	/**
+	 *
+	 * @param btn
+	 * @param text
+	 * @param id
+	 * @param btnId
+	 */
 
 	private void setButton(JButton btn, String text,int id, int btnId) {
 		btn.setText(text);
@@ -204,6 +223,11 @@ public class Gui extends JFrame {
 			setChoices(Database.getAnswersByStory(currentStoryId), answerIds);
 		});
 	}
+
+	/**
+	 *
+	 * @param id
+	 */
 
 	private void choicePressed(int id)
 	{

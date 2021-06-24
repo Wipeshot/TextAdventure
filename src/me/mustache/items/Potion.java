@@ -9,6 +9,13 @@ public class Potion extends Consumable{
     private int value;
     Stats stats = Main.thePlayer.getStats();
 
+    /**
+     * @param name
+     * @param desc
+     * @param id
+     * @param value
+     * @param type
+     */
     public Potion(String name, String desc, int id, int value, int type){
         super(name, desc, id);
 
@@ -17,10 +24,16 @@ public class Potion extends Consumable{
 
     }
 
+    /**
+     * @return type
+     */
     public int getType() {
         return type;
     }
 
+    /**
+     * @return value
+     */
     public int getValue() {
         return value;
     }

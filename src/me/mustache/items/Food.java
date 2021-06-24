@@ -6,11 +6,21 @@ import me.mustache.main.Main;
 public class Food extends Consumable{
 
     private int value;
+
+    /**
+     * @param name
+     * @param description
+     * @param id
+     * @param foodVal
+     */
     public Food(String name, String description, int id, int foodVal){
         super(name, description, id);
         this.value = foodVal;
     }
 
+    /**
+     * @return
+     */
     public int getFoodVal() {
         return value;
     }
