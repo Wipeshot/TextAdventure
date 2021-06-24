@@ -1,27 +1,27 @@
 package me.mustache.items;
 
-import me.mustache.character.Hunger;
+import me.mustache.character.Stats;
 import me.mustache.main.Main;
 
 public class Food extends Consumable{
 
-    private int foodVal;
+    private int value;
     public Food(String name, String description, int id, int foodVal){
         super(name, description, id);
-        this.foodVal = foodVal;
+        this.value = foodVal;
     }
 
     public int getFoodVal() {
-        return foodVal;
+        return value;
     }
 
     @Override
     public void useItem() {
-        Hunger hunger = Main.thePlayer.getHunger();
-        if(hunger.getHunger() + foodVal <= hunger.getMaxHunger()){
-            hunger.setHunger(hunger.getHunger() + foodVal);
-        } else {
-            hunger.setHunger(hunger.getMaxHunger());
+        Stats stats = Main.thePlayer.getStats();
+        if(stats.getMaxHp() >= stats.getCurrHp() + value){
+            stats.setCurrHp(stats.getCurrHp() + value);
+        }else{
+            stats.setCurrHp(stats.getMaxHp());
         }
     }
 }

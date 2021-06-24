@@ -4,7 +4,7 @@ import me.mustache.items.Item;
 
 public class Player {
 
-    private Hunger hunger;
+    //private Hunger hunger;
     private String name;
     private boolean alive;
 
@@ -16,7 +16,7 @@ public class Player {
 
     public Player() {
         stats = new Stats(100,100,0,100,100,10,10,10,10,10,10);
-        hunger = new Hunger();
+        //hunger = new Hunger();
         currency = new Currency(100);
     }
 
@@ -40,7 +40,7 @@ public class Player {
         return currency;
     }
 
-    public Hunger getHunger() {
+    /*public Hunger getHunger() {
         return hunger;
     }
 
@@ -50,7 +50,7 @@ public class Player {
 
     public Hunger getMaxHunger() {
         return hunger;
-    }
+    }*/
 
     public Stats getStats() {
         return stats;
