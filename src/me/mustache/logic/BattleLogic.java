@@ -81,10 +81,10 @@ public class BattleLogic {
                     Gui.getInstance().addToStory("Schaden an dem Gegner:" + String.valueOf(calculatedDamageHero));
 
                 }
-                if(enemy.getStats().getCurrHp() <=0)//wenn gegner tot ist verschwindet er und der spieler bekommt gold/exp
+                if(enemy.getStats().getCurrHp() <=0)//wenn gegner tot ist verschwindet er und der spieler bekommt perception
                 {
                     player.getStats().setPerception(player.getStats().getPerception()+ enemy.getStats().getPerception());
-                        Gui.getInstance().addToStory("players perception is now big dick");
+                        Gui.getInstance().addToStory("Perception erhöht.");
 
                     player.getCurrency().setGold((int)Math.round(enemy.getStats().getPerception()*0.5));
                 }

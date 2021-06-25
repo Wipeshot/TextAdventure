@@ -24,8 +24,8 @@ public class Gui extends JFrame {
 
 	private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
-	private int screenWidth = (int) screenSize.getWidth();
-	private int screenHeight = (int) screenSize.getHeight();
+	private int screenWidth = 1920;
+	private int screenHeight = 1080;
 
 	private int windowWidth = (int) (screenWidth*0.7);
 	private int windowHeight = (int) (screenHeight*0.7);
@@ -222,7 +222,7 @@ public class Gui extends JFrame {
 		}
 		btn.addActionListener(e -> {
 			choicePressed(id);
-			Trigger.useTrigger(id);
+			//Trigger.useTrigger(id);
 			int[] answerIds = Database.getAnswerIdsByStory(currentStoryId);
 			currentStoryId = Database.getNextStoryId(id);
 			addToStory(Database.getStoryByAnswer(id));
@@ -261,7 +261,8 @@ public class Gui extends JFrame {
 			if(!enemy.checkDeath() && !Main.thePlayer.checkDeath()){
 				setupFightscreen(enemy);
 			}else if(Main.thePlayer.checkDeath()){
-				setupDeathscreen();
+				this.dispose();
+				new Deathscreen();
 			}else if (enemy.checkDeath()){
 				choicesPanel.remove(attack);
 				choicesPanel.remove(escape);
@@ -274,25 +275,6 @@ public class Gui extends JFrame {
 		this.repaint();
 	}
 
-	public void setupDeathscreen(){
-		characterPanel.setVisible(false);
-		inventoryPanel.setVisible(false);
-		storyPanel.setVisible(false);
-		choicesPanel.setVisible(false);
-		envPanel.setVisible(false);
-		mapPanel.setVisible(false);
-	}
-
-	public void setupWinscreen(String winmsg){
-		characterPanel.setVisible(false);
-		inventoryPanel.setVisible(false);
-		storyPanel.setVisible(false);
-		choicesPanel.setVisible(false);
-		envPanel.setVisible(false);
-		mapPanel.setVisible(false);
-		inv.setVisible(false);
-
-	}
 
 	}
 
