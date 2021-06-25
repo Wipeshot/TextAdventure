@@ -3,6 +3,8 @@ package me.mustache.gui;
 import me.mustache.character.Player;
 import me.mustache.database.Database;
 import me.mustache.entity.Entity;
+import me.mustache.logic.BattleLogic;
+import me.mustache.logic.Trigger;
 import me.mustache.main.Main;
 
 import java.awt.*;
@@ -42,6 +44,8 @@ public class Gui extends JFrame {
 	private JPanel encounterPanel;
 	private JPanel envPanel;
 	private JPanel mapPanel;
+	private JButton attack = new JButton("Angriff");
+	private JButton escape = new JButton("Flüchten");
 
 	private static Gui instance = null;
 	public static Gui getInstance() {
@@ -218,6 +222,7 @@ public class Gui extends JFrame {
 		}
 		btn.addActionListener(e -> {
 			choicePressed(id);
+			Trigger.useTrigger(id);
 			int[] answerIds = Database.getAnswerIdsByStory(currentStoryId);
 			currentStoryId = Database.getNextStoryId(id);
 			addToStory(Database.getStoryByAnswer(id));
@@ -237,6 +242,36 @@ public class Gui extends JFrame {
 
 
 	public void setupFightscreen(Entity enemy){
+		choicesPanel.remove(upperLeftBtn);
+		choicesPanel.remove(upperRightBtn);
+		choicesPanel.remove(lowerLeftBtn);
+		choicesPanel.remove(lowerRightBtn);
+
+		choicesPanel.add(attack);
+		choicesPanel.add(escape);
+
+		BattleLogic bl = new BattleLogic(Main.thePlayer);
+
+		for( ActionListener act : attack.getActionListeners() ) {
+			attack.removeActionListener( act );
+		}
+		attack.addActionListener(e -> {
+			bl.fightEnemy(enemy);
+			bl.fightHero(enemy);
+			if(!enemy.checkDeath() && !Main.thePlayer.checkDeath()){
+				setupFightscreen(enemy);
+			}else if(Main.thePlayer.checkDeath()){
+				setupDeathscreen();
+			}else if (enemy.checkDeath()){
+				choicesPanel.remove(attack);
+				choicesPanel.remove(escape);
+				choicesPanel.add(upperLeftBtn);
+				choicesPanel.add(upperRightBtn);
+				choicesPanel.add(lowerLeftBtn);
+				choicesPanel.add(lowerRightBtn);
+			}
+		});
+		this.repaint();
 	}
 
 	public void setupDeathscreen(){
@@ -256,13 +291,6 @@ public class Gui extends JFrame {
 		envPanel.setVisible(false);
 		mapPanel.setVisible(false);
 		inv.setVisible(false);
-
-		JPanel winPanel = new JPanel();
-		JLabel winLabel = new JLabel(winmsg);
-		winPanel.add(winLabel);
-		this.add(winPanel);
-		winPanel.setVisible(true);
-		winLabel.setVisible(true);
 
 	}
 

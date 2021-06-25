@@ -23,7 +23,6 @@ public class Main {
         Database.createNewDatabase("test.db"); //Überpürft ob die Datenbank vorhanden ist und wenn nicht wird eine neue erstellt
 
 
-        Gui.getInstance().setupWinscreen("Penis");
 
     }
 

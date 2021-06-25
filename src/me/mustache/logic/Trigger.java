@@ -2,6 +2,7 @@ package me.mustache.logic;
 
 import me.mustache.database.Database;
 import me.mustache.entity.Entity;
+import me.mustache.gui.Gui;
 
 public class Trigger {
 
@@ -14,11 +15,12 @@ public class Trigger {
 
     }
 
-    public void useTrigger(int answerId){
+    public static void useTrigger(int answerId){
         int triggerId = Database.getTriggerIdByAnswerId(answerId);
 
         if(triggerId == 1){
             wolf = Database.createEntity(11);
+            Gui.getInstance().setupFightscreen(wolf);
         }else if (triggerId == 2){
             monster = Database.createEntity(1);
         }else if (triggerId == 3){

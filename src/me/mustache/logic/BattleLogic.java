@@ -7,7 +7,6 @@ public class BattleLogic {
 
 
         private Player player;
-      static Gui gui;
 
         public BattleLogic(Player player)
         {
@@ -30,22 +29,22 @@ public class BattleLogic {
                     if(criticalHit(enemy.getStats().getDexterity(), enemy.getStats().getPerception()) == true)
                     {
                         player.getStats().setCurrHp((int)(player.getStats().getCurrHp()-(calculatedDamageEnemy*1.5)));
-                        gui.getInstance().addToStory("Kritisch getroffen!");
-                        gui.getInstance().addToStory("Schaden an dem Helden:" + String.valueOf(calculatedDamageEnemy*1.5f));
+                        Gui.getInstance().addToStory("Kritisch getroffen!");
+                        Gui.getInstance().addToStory("Schaden an dem Helden:" + String.valueOf(calculatedDamageEnemy*1.5f));
 
                     }
                     else
                     {
                         player.getStats().setCurrHp(player.getStats().getCurrHp()-calculatedDamageEnemy);
-                        gui.getInstance().addToStory("Schaden an dem Helden:" + String.valueOf(calculatedDamageEnemy));
+                        Gui.getInstance().addToStory("Schaden an dem Helden:" + String.valueOf(calculatedDamageEnemy));
 
                     }
                 }
                 else
                 {
-                    gui.getInstance().addToStory("Gegner hat verfehlt!");
+                    Gui.getInstance().addToStory("Gegner hat verfehlt!");
                     calculatedDamageEnemy = 0;
-                    gui.getInstance().addToStory("Schaden an dem Helden:" + String.valueOf(calculatedDamageEnemy));
+                    Gui.getInstance().addToStory("Schaden an dem Helden:" + String.valueOf(calculatedDamageEnemy));
 
                 }
             }
@@ -65,27 +64,27 @@ public class BattleLogic {
                 {
                     if(criticalHit(player.getStats().getDexterity(),player.getStats().getPerception()) == true)
                     {
-                        gui.getInstance().addToStory("Kritisch getroffen!");
+                        Gui.getInstance().addToStory("Kritisch getroffen!");
                         enemy.getStats().setCurrHp((int)(enemy.getStats().getCurrHp()-(calculatedDamageHero*1.5f)));
-                        gui.getInstance().addToStory("Schaden an dem Gegner:" + String.valueOf(calculatedDamageHero*1.5f));
+                        Gui.getInstance().addToStory("Schaden an dem Gegner:" + String.valueOf(calculatedDamageHero*1.5f));
 
                     }
                     else
                     {
                         enemy.getStats().setCurrHp(enemy.getStats().getCurrHp()-calculatedDamageHero);
-                        gui.getInstance().addToStory("Schaden an dem Gegner:" + String.valueOf(calculatedDamageHero));
+                        Gui.getInstance().addToStory("Schaden an dem Gegner:" + String.valueOf(calculatedDamageHero));
                     }
                 }
                 else{
-                    gui.getInstance().addToStory("Held hat verfehlt!");
+                    Gui.getInstance().addToStory("Held hat verfehlt!");
                     calculatedDamageHero = 0;
-                    gui.getInstance().addToStory("Schaden an dem Gegner:" + String.valueOf(calculatedDamageHero));
+                    Gui.getInstance().addToStory("Schaden an dem Gegner:" + String.valueOf(calculatedDamageHero));
 
                 }
                 if(enemy.getStats().getCurrHp() <=0)//wenn gegner tot ist verschwindet er und der spieler bekommt gold/exp
                 {
                     player.getStats().setPerception(player.getStats().getPerception()+ enemy.getStats().getPerception());
-                        gui.getInstance().addToStory("players perception is now big dick");
+                        Gui.getInstance().addToStory("players perception is now big dick");
 
                     player.getCurrency().setGold((int)Math.round(enemy.getStats().getPerception()*0.5));
                 }

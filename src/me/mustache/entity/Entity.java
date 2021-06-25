@@ -35,4 +35,9 @@ public class Entity {
     public Stats getStats() {
         return stats;
     }
+
+    public boolean checkDeath(){
+        return (stats.getCurrHp() <= 0)? true : false;
+    }
+
 }

@@ -34,12 +34,8 @@ public class Player {
         return name;
     }
 
-    public void setAlive(boolean alive) {
-        this.alive = alive;
-    }
-
-    public boolean isAlive() {
-        return alive;
+    public boolean checkDeath(){
+        return (stats.getCurrHp() <= 0)? true : false;
     }
 
     /**
