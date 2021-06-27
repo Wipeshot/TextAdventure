@@ -42,8 +42,7 @@ public class StartGui extends JFrame{
         buttonName.setVisible(true);
         buttonName.addActionListener(e -> {
             if(!fieldName.getText().isEmpty()) {
-                Player p = thePlayer;
-                p.setName(fieldName.getText());
+                Player.getInstance().setName(fieldName.getText());
                 this.dispose();
                 Gui.getInstance();
             }

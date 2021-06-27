@@ -7,6 +7,9 @@ import me.mustache.items.Consumable;
 import me.mustache.items.Item;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class MetadataInventar {
     private ArrayList<Consumable> consumables = new ArrayList<>();
@@ -163,17 +166,17 @@ public class MetadataInventar {
     /**
      * @return items
      */
-    public ArrayList<String> getAllCurrentItemsAsStringList()
+    public ArrayList<Item> getAllCurrentItems()
     {
-        ArrayList<String> allItems = new ArrayList<>();
+        Set allItems = new HashSet();
         for (Item item: items)
         {
-            if(!allItems.contains(item.getName()))
-            {
-                allItems.add(item.getName());
-            }
+            allItems.add(item);
+
         }
-        return allItems;
+        ArrayList<Item> mainList = new ArrayList<>();
+        mainList.addAll(allItems);
+        return mainList;
     }
 
 }

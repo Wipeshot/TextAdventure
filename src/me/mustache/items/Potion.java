@@ -1,5 +1,6 @@
 package me.mustache.items;
 
+import me.mustache.character.Player;
 import me.mustache.character.Stats;
 import me.mustache.main.Main;
 
@@ -7,7 +8,7 @@ public class Potion extends Consumable{
 
     private int type;
     private int value;
-    Stats stats = Main.thePlayer.getStats();
+    Stats stats = Player.getInstance().getStats();
 
     /**
      * @param name
@@ -16,8 +17,8 @@ public class Potion extends Consumable{
      * @param value
      * @param type
      */
-    public Potion(String name, String desc, int id, int value, int type){
-        super(name, desc, id);
+    public Potion(String name, String desc, int id, int value, int type,EquipSlot slot){
+        super(name, desc, id,slot);
 
         this.type = type;
         this.value = value;

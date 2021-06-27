@@ -5,17 +5,28 @@ public abstract class Item {
 	protected String name;
 	protected String desc;
 	protected int id;
+	protected EquipSlot slot;
+	public enum EquipSlot            // Enum-Typ
+	{
+		UNEQUIPPABLE,
+		WEAPON,
+		HELMET,
+		CHEST,
+		LEGS,
+		BOOTS
+	}
 
 	/**
 	 * @param name 
 	 * @param desc
 	 * @param id
 	 */
-	public Item(String name, String desc, int id) {
+	public Item(String name, String desc, int id, EquipSlot slot) {
 
 		this.name = name;
 		this.desc = desc;
 		this.id = id;
+		this.slot = slot;
 
 
 	}
@@ -40,6 +51,6 @@ public abstract class Item {
 	public int getId(){
 		return id;
 	}
-
+	public EquipSlot getSlot(){return slot;}
 
 }

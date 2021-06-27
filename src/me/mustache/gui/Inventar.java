@@ -1,5 +1,8 @@
 package me.mustache.gui;
 
+import me.mustache.character.Player;
+import me.mustache.items.Item;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -36,7 +39,7 @@ public class Inventar extends JFrame {
         int posYNum=0;
 
         ArrayList<String> allConsumables = inv.getAllCurrentConsumablesAsStringList();
-        ArrayList<String> allItems = inv.getAllCurrentItemsAsStringList();
+        ArrayList<Item> allItems = inv.getAllCurrentItems();
         for (String str: allConsumables ) {
             JLabel itemName = new JLabel(str);
             itemName.setBounds((int) Math.round(windowX*0.05), posYLabel*40, (int) Math.round(windowX*0.4), (int) Math.round(windowY*0.125));
@@ -53,19 +56,24 @@ public class Inventar extends JFrame {
                     });
             posYLabel++;
         }
-        for (String str: allItems ) {
-            JLabel itemName = new JLabel(str);
+        for (Item item: allItems ) {
+            JLabel itemName = new JLabel(item.getName());
             itemName.setBounds((int) Math.round(windowX*0.05), posYLabel*40, (int) Math.round(windowX*0.4), (int) Math.round(windowY*0.125));
             add(itemName);
-            JButton useItem = new JButton("Ausrüsten");
-            JLabel numInventory = new JLabel(String.valueOf(inv.getAmountOfConsumable(str)));
+            String equipString = Player.getInstance().canEquip(item) ? "Ausrüsten" : "Ausziehen";
+
+            JButton useItem = new JButton(equipString);
+            JLabel numInventory = new JLabel(String.valueOf(inv.getAmountOfConsumable(item.getName())));
             numInventory.setBounds((int) Math.round(windowX*0.45),posYLabel*40, (int) Math.round( windowX*0.166), (int) Math.round(windowY*0.125));
             add(numInventory);
             useItem.setBounds((int) Math.round( windowX*0.616), posYLabel*40, (int) Math.round( windowX*0.344), (int) Math.round( windowY*0.125));
             add(useItem);
             useItem.addActionListener(e -> {
-                inv.useConsumable(str);
-                numInventory.setText(String.valueOf(inv.getAmountOfItem(str)));
+                if(Player.getInstance().canEquip(item))
+                    Player.getInstance().equipItem(item);
+                else
+                    Player.getInstance().unequipItem(item);
+                numInventory.setText(String.valueOf(inv.getAmountOfItem(item.getName())));
             });
             posYLabel++;
         }

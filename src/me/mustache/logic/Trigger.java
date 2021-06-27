@@ -19,6 +19,7 @@ public class Trigger {
     public static void useTrigger(int answerId){
         int triggerId = Database.getTriggerIdByAnswerId(answerId);
 
+
         if(triggerId == 1){
             wolf = Database.createEntity(11);
             //Gui.getInstance().setupFightscreen(wolf);

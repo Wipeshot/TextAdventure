@@ -12,17 +12,20 @@ import java.util.ArrayList;
 
 public class Main {
 
-    public static Player thePlayer;
+
     public static MetadataInventar inventar;
     public static void main(String[] args){
 
 
-        thePlayer = new Player();
+
         new StartGui();
 
         Database.createNewDatabase("test.db"); //Überpürft ob die Datenbank vorhanden ist und wenn nicht wird eine neue erstellt
 
-
+        Database.addItem(2);
+        Database.addItem(2);
+        Database.addItem(2);
+        Database.addItem(2);
 
     }
 

@@ -4,7 +4,6 @@ import me.mustache.character.Player;
 
 import javax.swing.*;
 
-import static me.mustache.main.Main.thePlayer;
 
 public class Deathscreen extends JFrame {
 

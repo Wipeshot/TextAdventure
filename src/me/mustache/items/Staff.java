@@ -10,8 +10,8 @@ public class Staff extends Item {
      * @param id
      * @param magicpower
      */
-    public Staff(String name, String desc, int id, double magicpower){
-        super(name, desc, id);
+    public Staff(String name, String desc, int id, double magicpower,EquipSlot slot){
+        super(name, desc, id, slot);
 
         this.magicpower = magicpower;
 

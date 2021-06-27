@@ -10,8 +10,8 @@ public class Weapon extends Item {
 	 * @param id
 	 * @param damage
 	 */
-	public Weapon(String name, String desc, int id, double damage) {
-		super(name, desc, id);
+	public Weapon(String name, String desc, int id, double damage,EquipSlot slot) {
+		super(name, desc, id,slot);
 
 		this.damage = damage;
 		

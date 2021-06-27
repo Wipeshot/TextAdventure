@@ -203,12 +203,13 @@ public class Database {
     }
 
     public static void addItem(int id){
-        String getItemInfo = "SELECT itemId, type, name, desc\n"
+        String getItemInfo = "SELECT itemId, type, name, desc, itemslot\n"
                 + " FROM items i\n"
                 + " WHERE itemId = ?"
                 + " ;";
         int itemId = 0;
         int type = 0;
+        Item.EquipSlot slot = Item.EquipSlot.UNEQUIPPABLE;
         String desc = null;
         String name = null;
 
@@ -251,6 +252,7 @@ public class Database {
             type = rs.getInt("type");
             name = rs.getString("name");
             desc = rs.getString("desc");
+            slot = Item.EquipSlot.values()[rs.getInt("itemslot")];
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -266,7 +268,7 @@ public class Database {
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
             }
-            MetadataInventar.getInstance().addItem(new Weapon(name, desc, itemId, dmg));
+            MetadataInventar.getInstance().addItem(new Weapon(name, desc, itemId, dmg,slot));
         }else if(type == 2){
             try (Connection conn = DriverManager.getConnection(url)) {
                 PreparedStatement pstmt = conn.prepareStatement(getStaffMagic);
@@ -276,7 +278,7 @@ public class Database {
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
             }
-            MetadataInventar.getInstance().addItem(new Staff(name, desc, itemId, magic));
+            MetadataInventar.getInstance().addItem(new Staff(name, desc, itemId, magic,slot));
         }else if(type == 3){
             try (Connection conn = DriverManager.getConnection(url)) {
                 PreparedStatement pstmt = conn.prepareStatement(getConsumableType);
@@ -295,7 +297,7 @@ public class Database {
                 } catch (SQLException e) {
                     System.out.println(e.getMessage());
                 }
-                MetadataInventar.getInstance().addConsumable(new Food(name, desc, itemId, foodVal));
+                MetadataInventar.getInstance().addConsumable(new Food(name, desc, itemId, foodVal,slot));
             }else if(consumableType == 2){
                 try (Connection conn = DriverManager.getConnection(url)) {
                     PreparedStatement pstmt = conn.prepareStatement(getPotValue);
@@ -305,7 +307,7 @@ public class Database {
                 } catch (SQLException e) {
                     System.out.println(e.getMessage());
                 }
-                MetadataInventar.getInstance().addConsumable(new Potion(name, desc, itemId, potValue, potType));
+                MetadataInventar.getInstance().addConsumable(new Potion(name, desc, itemId, potValue, potType,slot));
             }
         }
 

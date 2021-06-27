@@ -181,7 +181,7 @@ public class Gui extends JFrame {
 	}
 
 	public void openInventar(){ //Erstellt das Inventar
-		new Inventar(Main.thePlayer.getName());
+		new Inventar(Player.getInstance().getName());
 	}
 
 	/**
@@ -250,7 +250,7 @@ public class Gui extends JFrame {
 		choicesPanel.add(attack);
 		choicesPanel.add(escape);
 
-		BattleLogic bl = new BattleLogic(Main.thePlayer);
+		BattleLogic bl = new BattleLogic(Player.getInstance());
 
 		for( ActionListener act : attack.getActionListeners() ) {
 			attack.removeActionListener( act );
@@ -258,9 +258,9 @@ public class Gui extends JFrame {
 		attack.addActionListener(e -> {
 			bl.fightEnemy(enemy);
 			bl.fightHero(enemy);
-			if(!enemy.checkDeath() && !Main.thePlayer.checkDeath()){
+			if(!enemy.checkDeath() && !Player.getInstance().checkDeath()){
 				setupFightscreen(enemy);
-			}else if(Main.thePlayer.checkDeath()){
+			}else if(Player.getInstance().checkDeath()){
 				this.dispose();
 				new Deathscreen();
 			}else if (enemy.checkDeath()){
